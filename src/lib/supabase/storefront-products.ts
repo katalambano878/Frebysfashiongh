@@ -153,7 +153,7 @@ export function mapProductRowToProduct(row: ProductRow): Product {
     shortDescription: row.short_description?.trim() ?? row.name,
     categoryId: row.category_id ?? cat?.id ?? "",
     categoryName: cat?.name ?? "",
-    categorySlug: cat?.slug ?? "",
+    categorySlug: (cat?.slug ?? "").toLowerCase(),
     price,
     salePrice,
     images: imageUrlsFromRows(row.product_images ?? undefined),
@@ -332,6 +332,7 @@ export type StorefrontCategory = {
   slug: string
   description: string
   productCount: number
+  image_url: string | null
 }
 
 export async function fetchStorefrontCategoriesWithCounts(): Promise<
@@ -340,11 +341,11 @@ export async function fetchStorefrontCategoriesWithCounts(): Promise<
   const supabase = await getClient()
   const { data: cats, error: catErr } = await supabase
     .from("categories")
-    .select("id, name, slug, description")
+    .select("id, name, slug, description, image_url")
     .eq("is_active", true)
     .order("sort_order", { ascending: true })
 
-  if (catErr || !cats) return []
+  if (catErr || !cats?.length) return []
 
   const { data: products } = await supabase
     .from("products")
@@ -360,9 +361,10 @@ export async function fetchStorefrontCategoriesWithCounts(): Promise<
 
   return cats.map((c) => ({
     id: c.id,
-    name: c.name,
-    slug: c.slug,
-    description: (c.description as string)?.trim() ?? "",
+    name: c.name ?? "",
+    slug: (c.slug ?? "").toLowerCase(),
+    description: (c.description as string | null)?.trim() ?? "",
     productCount: countMap.get(c.id) ?? 0,
+    image_url: (c.image_url as string | null)?.trim() || null,
   }))
 }

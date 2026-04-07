@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Grid3X3, LayoutList, Loader2, Plus, Trash2 } from "lucide-react"
-import { CATALOG_DEFAULT_CATEGORIES } from "@/lib/admin/catalog-categories"
+import { CATALOG_DEFAULT_CATEGORIES } from "@/lib/catalog-default-categories"
 
 function slugify(name: string) {
   return name

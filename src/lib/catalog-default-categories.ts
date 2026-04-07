@@ -1,6 +1,6 @@
 /**
- * Default storefront product categories. Used by admin Categories page
- * ("Add catalog defaults") and supabase/seed.sql — keep in sync.
+ * Canonical storefront category list (order + slugs). Keep in sync with
+ * supabase/seed.sql and migrations that seed categories.
  */
 export const CATALOG_DEFAULT_CATEGORIES = [
   { name: "Dresses", slug: "dresses", description: "Dresses for every occasion", sort_order: 1 },

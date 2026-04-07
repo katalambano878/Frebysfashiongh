@@ -1,5 +1,5 @@
 -- Optional seed (run after migration, as postgres or service role in SQL Editor)
--- Default catalog categories (mirrors src/lib/admin/catalog-categories.ts)
+-- Default catalog categories (mirrors src/lib/catalog-default-categories.ts)
 
 insert into public.categories (name, slug, description, sort_order, is_active)
 values

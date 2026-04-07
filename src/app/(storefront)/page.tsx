@@ -15,27 +15,25 @@ import {
   fetchBestSellers,
   fetchTrendingProducts,
   fetchProductsByCategorySlug,
+  fetchStorefrontCategoriesWithCounts,
 } from "@/lib/supabase/storefront-products"
 
 export default async function HomePage() {
-  const [newArrivals, curatedPicks, perfumePicks, bestGrid, trending] =
+  const [newArrivals, curatedPicks, perfumePicks, bestGrid, trending, categories] =
     await Promise.all([
       fetchNewArrivals(4),
       fetchBestSellers(4),
       fetchProductsByCategorySlug("perfumes", 4),
       fetchBestSellers(8),
       fetchTrendingProducts(6),
+      fetchStorefrontCategoriesWithCounts(),
     ])
 
   return (
     <>
       <HeroSection />
 
-      <Section>
-        <Container>
-          <CategoriesRow />
-        </Container>
-      </Section>
+      <CategoriesRow categories={categories} />
 
       <Section>
         <Container>
@@ -57,7 +55,7 @@ export default async function HomePage() {
         title="The Perfect Gift, Every Time"
         subtitle="Explore our curated gift sets — beautifully wrapped and ready to delight."
         ctaText="Shop Gift Sets"
-        ctaHref="/shop?category=gift-items"
+        ctaHref="/shop?category=jewelries"
       />
 
       <Section>

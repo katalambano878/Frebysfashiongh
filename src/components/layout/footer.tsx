@@ -2,17 +2,17 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Send } from "lucide-react"
+import { Send, Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 const shopLinks = [
-  { href: "/shop/bags", label: "Bags" },
-  { href: "/shop/dresses", label: "Dresses" },
-  { href: "/shop/shoes", label: "Shoes" },
-  { href: "/shop/perfumes", label: "Perfumes" },
-  { href: "/shop/accessories", label: "Accessories" },
-  { href: "/shop/gift-items", label: "Gift Items" },
+  { href: "/shop?category=dresses", label: "Dresses" },
+  { href: "/shop?category=bags", label: "Bags" },
+  { href: "/shop?category=shoes", label: "Shoes" },
+  { href: "/shop?category=perfumes", label: "Perfumes" },
+  { href: "/shop?category=jewelries", label: "Jewelries" },
+  { href: "/shop?category=men", label: "Men" },
 ]
 
 const careLinks = [
@@ -33,13 +33,43 @@ const aboutLinks = [
 ]
 
 const socials = [
-  { label: "Instagram", href: "#" },
-  { label: "X", href: "#" },
-  { label: "Facebook", href: "#" },
-  { label: "TikTok", href: "#" },
-]
+  {
+    label: "Instagram",
+    href: "#",
+    iconSrc: "https://cdn.simpleicons.org/instagram/FFFFFF",
+  },
+  {
+    label: "X",
+    href: "#",
+    iconSrc: "https://cdn.simpleicons.org/x/FFFFFF",
+  },
+  {
+    label: "Facebook",
+    href: "#",
+    iconSrc: "https://cdn.simpleicons.org/facebook/FFFFFF",
+  },
+  {
+    label: "TikTok",
+    href: "#",
+    iconSrc: "https://cdn.simpleicons.org/tiktok/FFFFFF",
+  },
+] as const
 
-const payments = ["Visa", "Mastercard", "Amex", "MoMo"]
+/** Brand marks via Simple Icons CDN (https://simpleicons.org) — MoMo uses a phone icon (no SI slug). */
+const payments = [
+  {
+    label: "Visa",
+    iconSrc: "https://cdn.simpleicons.org/visa/FFFFFF",
+  },
+  {
+    label: "Mastercard",
+    iconSrc: "https://cdn.simpleicons.org/mastercard",
+  },
+  {
+    label: "American Express",
+    iconSrc: "https://cdn.simpleicons.org/americanexpress/FFFFFF",
+  },
+] as const
 
 function FooterColumn({
   title,
@@ -116,26 +146,54 @@ export function Footer() {
             &copy; 2026 Laura&apos;s Luxury. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-3">
-            {payments.map((name) => (
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:justify-start">
+            {payments.map((p) => (
               <span
-                key={name}
-                className="inline-flex h-6 items-center rounded bg-white/10 px-2 text-[10px] font-medium text-white/50"
+                key={p.label}
+                className="inline-flex h-6 items-center justify-center rounded bg-white/10 px-1.5 py-0.5"
+                title={p.label}
               >
-                {name}
+                <img
+                  src={p.iconSrc}
+                  alt=""
+                  width={28}
+                  height={16}
+                  className="h-3.5 w-auto max-w-[2rem] object-contain opacity-90"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="sr-only">{p.label}</span>
               </span>
             ))}
+            <span
+              className="inline-flex h-6 items-center justify-center rounded bg-white/10 px-1.5 py-0.5"
+              title="Mobile Money (MoMo)"
+            >
+              <Smartphone
+                className="size-3.5 text-white/90"
+                aria-hidden
+              />
+              <span className="sr-only">Mobile Money (MoMo)</span>
+            </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-center gap-1.5 sm:justify-end">
             {socials.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
-                className="text-xs text-white/40 transition-colors hover:text-white"
+                className="inline-flex size-7 items-center justify-center rounded-full bg-white/10 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
                 aria-label={social.label}
               >
-                {social.label}
+                <img
+                  src={social.iconSrc}
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="size-3.5 object-contain opacity-90"
+                  loading="lazy"
+                  decoding="async"
+                />
               </a>
             ))}
           </div>

@@ -64,15 +64,19 @@ export type ShopPageClientProps = {
   products: Product[]
   categories: StorefrontCategory[]
   maxPrice: number
+  initialCategory?: string
 }
 
 export default function ShopPageClient({
   products,
   categories,
   maxPrice,
+  initialCategory,
 }: ShopPageClientProps) {
   const searchParams = useSearchParams()
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(() =>
+    initialCategory ? [initialCategory] : [],
+  )
   const [priceRange, setPriceRange] = useState<number[]>([
     MIN_PRICE,
     maxPrice,
@@ -92,8 +96,10 @@ export default function ShopPageClient({
 
   useEffect(() => {
     const cat = searchParams.get("category")
+    if (cat) {
+      setSelectedCategories([cat.toLowerCase()])
+    }
     const filter = searchParams.get("filter")
-    if (cat) setSelectedCategories([cat])
     if (filter === "best-sellers") setSort("best-sellers")
   }, [searchParams])
 
@@ -101,8 +107,9 @@ export default function ShopPageClient({
     let result = [...products]
 
     if (selectedCategories.length > 0) {
+      const selected = new Set(selectedCategories.map((s) => s.toLowerCase()))
       result = result.filter((p) =>
-        selectedCategories.includes(p.categorySlug),
+        selected.has((p.categorySlug ?? "").toLowerCase()),
       )
     }
 
@@ -159,7 +166,9 @@ export default function ShopPageClient({
 
   const activeCategoryName =
     selectedCategories.length === 1
-      ? categories.find((c) => c.slug === selectedCategories[0])?.name
+      ? categories.find(
+          (c) => c.slug.toLowerCase() === selectedCategories[0],
+        )?.name
       : null
 
   const hasActiveFilters =
@@ -169,10 +178,11 @@ export default function ShopPageClient({
     inStockOnly
 
   function toggleCategory(slug: string) {
+    const key = slug.toLowerCase()
     setSelectedCategories((prev) =>
-      prev.includes(slug)
-        ? prev.filter((s) => s !== slug)
-        : [...prev, slug],
+      prev.includes(key)
+        ? prev.filter((s) => s !== key)
+        : [...prev, key],
     )
     setVisibleCount(ITEMS_PER_PAGE)
   }
@@ -203,8 +213,8 @@ export default function ShopPageClient({
               className="flex cursor-pointer items-center gap-2.5"
             >
               <Checkbox
-                checked={selectedCategories.includes(cat.slug)}
-                onCheckedChange={() => toggleCategory(cat.slug)}
+                checked={selectedCategories.includes(cat.slug.toLowerCase())}
+                onCheckedChange={() => toggleCategory(cat.slug.toLowerCase())}
               />
               <span className="text-sm text-navy/80">{cat.name}</span>
               <span className="ml-auto text-xs text-muted-foreground">
@@ -318,7 +328,9 @@ export default function ShopPageClient({
           {hasActiveFilters && (
             <div className="mb-6 flex flex-wrap items-center gap-2">
               {selectedCategories.map((slug) => {
-                const cat = categories.find((c) => c.slug === slug)
+                const cat = categories.find(
+                  (c) => c.slug.toLowerCase() === slug,
+                )
                 if (!cat) return null
                 return (
                   <button

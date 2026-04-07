@@ -5,7 +5,19 @@ import {
   fetchStorefrontCategoriesWithCounts,
 } from "@/lib/supabase/storefront-products"
 
-export default async function ShopPage() {
+type ShopSearchParams = { category?: string }
+
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<ShopSearchParams>
+}) {
+  const sp = await searchParams
+  const initialCategory =
+    typeof sp.category === "string" && sp.category.trim() !== ""
+      ? sp.category.trim().toLowerCase()
+      : undefined
+
   const [products, categories] = await Promise.all([
     fetchActiveProducts(),
     fetchStorefrontCategoriesWithCounts(),
@@ -22,6 +34,7 @@ export default async function ShopPage() {
         products={products}
         categories={categories}
         maxPrice={maxPrice}
+        initialCategory={initialCategory}
       />
     </Suspense>
   )

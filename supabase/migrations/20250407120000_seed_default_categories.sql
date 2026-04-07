@@ -1,4 +1,4 @@
--- Default storefront categories (same list as src/lib/admin/catalog-categories.ts).
+-- Default storefront categories (same list as src/lib/catalog-default-categories.ts).
 -- Applied with migrations so Admin → Categories shows these rows without manual seed runs.
 
 insert into public.categories (name, slug, description, sort_order, is_active)
