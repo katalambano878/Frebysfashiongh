@@ -7,10 +7,16 @@ import { Container } from "@/components/shared/container"
 import { Section } from "@/components/shared/section"
 import { Heading } from "@/components/shared/heading"
 import { ProductCard } from "@/components/shared/product-card"
-import { getBestSellers } from "@/lib/mock-data"
+import type { Product } from "@/types/product"
 
-export function BestSellersGrid() {
-  const bestSellers = getBestSellers().slice(0, 8)
+export type BestSellersGridProps = {
+  products: Product[]
+}
+
+export function BestSellersGrid({ products }: BestSellersGridProps) {
+  const list = products.slice(0, 8)
+
+  if (list.length === 0) return null
 
   return (
     <Section>
@@ -24,7 +30,7 @@ export function BestSellersGrid() {
         </Heading>
 
         <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-          {bestSellers.map((product, i) => (
+          {list.map((product, i) => (
             <motion.div
               key={product.id}
               whileInView={{ opacity: 1, y: 0 }}

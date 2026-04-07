@@ -10,8 +10,23 @@ import { NewsletterSection } from "@/components/home/newsletter-section"
 import { TrustBar } from "@/components/shared/trust-bar"
 import { Container } from "@/components/shared/container"
 import { Section } from "@/components/shared/section"
+import {
+  fetchNewArrivals,
+  fetchBestSellers,
+  fetchTrendingProducts,
+  fetchProductsByCategorySlug,
+} from "@/lib/supabase/storefront-products"
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [newArrivals, curatedPicks, perfumePicks, bestGrid, trending] =
+    await Promise.all([
+      fetchNewArrivals(4),
+      fetchBestSellers(4),
+      fetchProductsByCategorySlug("perfumes", 4),
+      fetchBestSellers(8),
+      fetchTrendingProducts(6),
+    ])
+
   return (
     <>
       <HeroSection />
@@ -24,13 +39,17 @@ export default function HomePage() {
 
       <Section>
         <Container>
-          <FeaturedCollections />
+          <FeaturedCollections
+            newArrivals={newArrivals}
+            curatedPicks={curatedPicks}
+            perfumePicks={perfumePicks}
+          />
         </Container>
       </Section>
 
       <Section>
         <Container>
-          <BestSellersGrid />
+          <BestSellersGrid products={bestGrid} />
         </Container>
       </Section>
 
@@ -43,7 +62,7 @@ export default function HomePage() {
 
       <Section>
         <Container>
-          <TrendingCarousel />
+          <TrendingCarousel products={trending} />
         </Container>
       </Section>
 

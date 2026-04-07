@@ -155,13 +155,18 @@ export default function CheckoutSuccessPage() {
               <span className="font-semibold text-navy">{orderNumber}</span>
             </p>
             <p className="mt-2 text-muted-foreground">
-              We&apos;ve sent a confirmation to{" "}
-              {orderData?.formData.email ? (
-                <span className="font-medium text-navy">
-                  {orderData.formData.email}
-                </span>
+              {orderData?.formData.email?.trim() ? (
+                <>
+                  We&apos;ve sent a confirmation to{" "}
+                  <span className="font-medium text-navy">
+                    {orderData.formData.email.trim()}
+                  </span>
+                </>
               ) : (
-                "your email"
+                <>
+                  Save your order number — we&apos;ll reach you on the phone
+                  number you provided with updates.
+                </>
               )}
             </p>
           </motion.div>

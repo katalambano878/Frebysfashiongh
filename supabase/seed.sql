@@ -1,18 +1,26 @@
 -- Optional seed (run after migration, as postgres or service role in SQL Editor)
--- Categories for Laura's Luxury
+-- Default catalog categories (mirrors src/lib/admin/catalog-categories.ts)
 
 insert into public.categories (name, slug, description, sort_order, is_active)
 values
-  ('Bags', 'bags', 'Luxury bags for every occasion', 1, true),
-  ('Dresses', 'dresses', 'Elegant dresses that make a statement', 2, true),
-  ('Shoes', 'shoes', 'Step out in style and comfort', 3, true),
-  ('Perfumes', 'perfumes', 'Signature scents for the confident woman', 4, true),
-  ('Accessories', 'accessories', 'The finishing touches that elevate', 5, true),
-  ('Gift Items', 'gift-items', 'Thoughtful luxury gifts she''ll adore', 6, true)
+  ('Dresses', 'dresses', 'Dresses for every occasion', 1, true),
+  ('Two piece', 'two-piece', 'Coordinated two-piece sets', 2, true),
+  ('Tops', 'tops', 'Blouses, shirts, and tops', 3, true),
+  ('Jeans', 'jeans', 'Denim fits you will love', 4, true),
+  ('Bags', 'bags', 'Handbags and everyday bags', 5, true),
+  ('Watches', 'watches', 'Timepieces and wristwear', 6, true),
+  ('Perfumes', 'perfumes', 'Fragrances and scents', 7, true),
+  ('Sunglasses', 'sunglasses', 'Eyewear and sun protection', 8, true),
+  ('Shoes', 'shoes', 'Footwear for every look', 9, true),
+  ('Heels', 'heels', 'Heels and elevated styles', 10, true),
+  ('Slippers', 'slippers', 'Comfortable slip-ons', 11, true),
+  ('Jewelries', 'jewelries', 'Jewelry and accessories', 12, true),
+  ('Luggage', 'luggage', 'Travel bags and luggage', 13, true),
+  ('Men', 'men', 'Men''s collection', 14, true)
 on conflict (slug) do nothing;
 
 update public.storefront_settings set
-  announcement_bar = 'Free delivery on orders over GH₵ 500 · Authentic products · Easy returns',
+  announcement_bar = 'Free delivery on orders over GH₵ 2,000 · Authentic products · Easy returns',
   store_name = 'Laura''s Luxury',
   whatsapp_number = '+233000000000',
   support_email = 'hello@laurasluxury.com'
@@ -33,7 +41,6 @@ update public.site_settings set
   ),
   payment_providers = jsonb_build_object(
     'moolre', jsonb_build_object('enabled', true),
-    'paystack', jsonb_build_object('enabled', false),
-    'flutterwave', jsonb_build_object('enabled', false)
+    'paystack', jsonb_build_object('enabled', false)
   )
 where id = 1;

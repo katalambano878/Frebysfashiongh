@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import type { ProductBadge } from "@/lib/mock-data"
+import type { ProductBadge } from "@/types/product"
 
 const badgeStyles: Record<ProductBadge, string> = {
   New: "bg-navy text-white hover:bg-navy/90",

@@ -1,12 +1,13 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Grid3X3, Loader2, Plus, Trash2 } from "lucide-react"
+import { Grid3X3, LayoutList, Loader2, Plus, Trash2 } from "lucide-react"
+import { CATALOG_DEFAULT_CATEGORIES } from "@/lib/admin/catalog-categories"
 
 function slugify(name: string) {
   return name
@@ -32,18 +33,44 @@ export default function AdminCategoriesPage() {
   const [loading, setLoading] = useState(true)
   const [savingId, setSavingId] = useState<string | null>(null)
   const [creating, setCreating] = useState(false)
+  const [seedingDefaults, setSeedingDefaults] = useState(false)
 
   const [newName, setNewName] = useState("")
   const [newSlug, setNewSlug] = useState("")
   const [newImageUrl, setNewImageUrl] = useState("")
   const [newSort, setNewSort] = useState("0")
+  const autoSeededEmptyDb = useRef(false)
 
   const load = useCallback(async () => {
     const supabase = createClient()
-    const { data } = await supabase
+    let { data } = await supabase
       .from("categories")
       .select("*")
       .order("sort_order", { ascending: true })
+
+    if (
+      (data ?? []).length === 0 &&
+      !autoSeededEmptyDb.current
+    ) {
+      const { error } = await supabase.from("categories").insert(
+        CATALOG_DEFAULT_CATEGORIES.map((c) => ({
+          name: c.name,
+          slug: c.slug,
+          description: c.description,
+          sort_order: c.sort_order,
+          is_active: true,
+        })),
+      )
+      if (!error) {
+        autoSeededEmptyDb.current = true
+        const again = await supabase
+          .from("categories")
+          .select("*")
+          .order("sort_order", { ascending: true })
+        data = again.data
+      }
+    }
+
     setRows(
       (data ?? []).map((r) => ({
         id: r.id,
@@ -115,9 +142,85 @@ export default function AdminCategoriesPage() {
     void load()
   }
 
+  const addCatalogDefaults = async () => {
+    const supabase = createClient()
+    setSeedingDefaults(true)
+    const { data: existing } = await supabase.from("categories").select("slug")
+    const taken = new Set((existing ?? []).map((r) => (r.slug ?? "").toLowerCase()))
+    const missing = CATALOG_DEFAULT_CATEGORIES.filter(
+      (c) => !taken.has(c.slug.toLowerCase()),
+    )
+    if (missing.length === 0) {
+      setSeedingDefaults(false)
+      alert("All catalog categories are already in the list.")
+      return
+    }
+    const { error } = await supabase.from("categories").insert(
+      missing.map((c) => ({
+        name: c.name,
+        slug: c.slug,
+        description: c.description,
+        sort_order: c.sort_order,
+        is_active: true,
+      })),
+    )
+    setSeedingDefaults(false)
+    if (error) {
+      alert(error.message)
+      return
+    }
+    void load()
+  }
+
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-900">Categories</h1>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <h1 className="text-2xl font-bold text-slate-900">Categories</h1>
+        <Button
+          type="button"
+          variant="outline"
+          className="shrink-0 gap-2"
+          disabled={seedingDefaults}
+          onClick={() => void addCatalogDefaults()}
+        >
+          {seedingDefaults ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <LayoutList className="size-4" />
+          )}
+          Add catalog defaults (14)
+        </Button>
+      </div>
+
+      <p className="-mt-2 text-sm text-slate-600">
+        The 14 catalog categories are added automatically when the list is empty (first
+        visit) and when you run Supabase migrations. Use the button below only to fill in
+        any slugs you are still missing.
+      </p>
+
+      <Card className="rounded-xl border border-sky-100 bg-sky-50/40 shadow-sm">
+        <CardContent className="space-y-2 p-4 text-sm text-slate-700">
+          <p className="font-semibold text-slate-900">How this shows on the storefront</p>
+          <ul className="list-inside list-disc space-y-1 text-slate-600">
+            <li>
+              <strong>Add one by one:</strong> fill Name (and Slug if you want a custom URL
+              piece), optional Image URL and Sort, then click <strong>Add</strong>.
+            </li>
+            <li>
+              <strong>Existing rows:</strong> edit fields, then click <strong>Save</strong> on
+              that row — changes apply immediately to the live site.
+            </li>
+            <li>
+              <strong>Visible</strong> must be checked — unchecked categories are hidden from
+              shoppers (homepage “Shop by Category”, shop filters, and collections).
+            </li>
+            <li>
+              <strong>Products:</strong> open each product in Admin → Products and set its
+              category so it appears when customers tap that category or use the shop filter.
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
 
       <Card className="rounded-xl border shadow-sm">
         <CardContent className="space-y-3 p-4">

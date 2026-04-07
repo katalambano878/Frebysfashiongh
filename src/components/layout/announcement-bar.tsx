@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { X } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
+import { formatFreeShippingMinimumLabel } from "@/lib/utils"
 
 export function AnnouncementBar() {
   const [visible, setVisible] = useState(true)
@@ -19,8 +20,8 @@ export function AnnouncementBar() {
         >
           <div className="relative flex items-center justify-center px-10 py-2.5">
             <p className="text-center text-xs font-light tracking-wide sm:text-sm">
-              Free delivery on orders over GH₵ 500 · Authentic products · Easy
-              returns
+              Free delivery on orders over {formatFreeShippingMinimumLabel()} ·
+              Authentic products · Easy returns
             </p>
             <button
               onClick={() => setVisible(false)}

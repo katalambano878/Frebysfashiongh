@@ -65,9 +65,8 @@ const FEATURE_FLAGS = [
 ]
 
 const PAYMENT_PROVIDERS = [
-  { key: "moolre", label: "Moolre", description: "Mobile money & card payments" },
-  { key: "paystack", label: "Paystack", description: "Online payments for Africa" },
-  { key: "flutterwave", label: "Flutterwave", description: "Payments infrastructure" },
+  { key: "moolre", label: "Mobile Money", description: "Mobile money checkout" },
+  { key: "paystack", label: "Card Payment", description: "Cards & bank transfer (Paystack)" },
 ]
 
 type HeroSlide = { image_url: string; alt: string }
@@ -411,7 +410,7 @@ export function SettingsPageClient() {
                 <Input
                   value={announcement}
                   onChange={(e) => setAnnouncement(e.target.value)}
-                  placeholder="Free shipping on orders over GH₵ 500"
+                  placeholder="Free shipping on orders over GH₵ 2,000"
                 />
               </div>
 

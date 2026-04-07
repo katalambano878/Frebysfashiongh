@@ -16,7 +16,7 @@ import {
   SheetFooter,
   SheetDescription,
 } from "@/components/ui/sheet"
-import type { Product } from "@/lib/mock-data"
+import type { Product } from "@/types/product"
 import { getProductPrimaryImageUrl } from "@/lib/product-image"
 
 function ProductThumbnail({ product }: { product: Product }) {

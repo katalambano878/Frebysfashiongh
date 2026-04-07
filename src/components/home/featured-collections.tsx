@@ -6,31 +6,48 @@ import { Container } from "@/components/shared/container"
 import { Section } from "@/components/shared/section"
 import { Heading } from "@/components/shared/heading"
 import { ProductCard } from "@/components/shared/product-card"
-import { getNewArrivals, getBestSellers, products, type Product } from "@/lib/mock-data"
+import type { Product } from "@/types/product"
 import { cn } from "@/lib/utils"
 
 const tabs = [
   { id: "new-arrivals", label: "New Arrivals" },
-  { id: "best-sellers", label: "Best Sellers" },
+  { id: "best-sellers", label: "Curated Picks" },
   { id: "perfume-picks", label: "Perfume Picks" },
 ] as const
 
-function getTabProducts(id: string): Product[] {
+export type FeaturedCollectionsProps = {
+  newArrivals: Product[]
+  curatedPicks: Product[]
+  perfumePicks: Product[]
+}
+
+function getTabProducts(
+  id: string,
+  data: FeaturedCollectionsProps,
+): Product[] {
   switch (id) {
     case "new-arrivals":
-      return getNewArrivals().slice(0, 4)
+      return data.newArrivals.slice(0, 4)
     case "best-sellers":
-      return getBestSellers().slice(0, 4)
+      return data.curatedPicks.slice(0, 4)
     case "perfume-picks":
-      return products.filter((p) => p.categoryId === "cat-4").slice(0, 4)
+      return data.perfumePicks.slice(0, 4)
     default:
       return []
   }
 }
 
-export function FeaturedCollections() {
+export function FeaturedCollections({
+  newArrivals,
+  curatedPicks,
+  perfumePicks,
+}: FeaturedCollectionsProps) {
   const [activeTab, setActiveTab] = useState<string>("new-arrivals")
-  const activeProducts = getTabProducts(activeTab)
+  const activeProducts = getTabProducts(activeTab, {
+    newArrivals,
+    curatedPicks,
+    perfumePicks,
+  })
 
   return (
     <Section className="pt-6 sm:pt-8">
@@ -48,6 +65,7 @@ export function FeaturedCollections() {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
+                type="button"
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
                   "rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 sm:px-6",

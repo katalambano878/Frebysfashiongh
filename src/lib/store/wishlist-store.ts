@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-import type { Product } from "@/lib/mock-data"
+import type { Product } from "@/types/product"
 
 type WishlistState = {
   items: Product[]

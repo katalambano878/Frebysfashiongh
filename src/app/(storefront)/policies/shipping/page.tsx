@@ -11,6 +11,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion"
+import { formatFreeShippingMinimumLabel } from "@/lib/utils"
 
 const sections = [
   {
@@ -33,7 +34,7 @@ We also deliver to university campuses, office complexes, and gated communities.
     title: "Shipping Rates",
     content: `We offer competitive, transparent shipping rates:
 
-**Free Shipping** — All orders over GH₵ 500 qualify for free standard delivery nationwide.
+**Free Shipping** — All orders over ${formatFreeShippingMinimumLabel()} qualify for free standard delivery nationwide.
 
 **Standard Delivery (Accra)** — GH₵ 25
 

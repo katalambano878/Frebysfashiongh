@@ -23,9 +23,11 @@ export async function POST(req: NextRequest) {
       total,
     } = body
 
-    if (!email || !items?.length || !total) {
+    if (!items?.length || !total) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
+
+    const trimmedEmail = typeof email === "string" ? email.trim() : ""
 
     const secretKey = process.env.PAYSTACK_SECRET_KEY
     if (!secretKey) {
@@ -34,6 +36,13 @@ export async function POST(req: NextRequest) {
 
     const supabase = createAdminClient()
     const orderNumber = generateOrderNumber()
+
+    const phoneDigits = String(phone ?? "").replace(/\D/g, "")
+    const paystackCustomerEmail =
+      trimmedEmail ||
+      (phoneDigits.length > 0
+        ? `${phoneDigits}@guest.checkout`
+        : `guest-${orderNumber.replace(/[^A-Za-z0-9]/g, "")}@guest.checkout`)
 
     const shippingAddress = {
       firstName,
@@ -50,7 +59,7 @@ export async function POST(req: NextRequest) {
       .from("orders")
       .insert({
         order_number: orderNumber,
-        guest_email: email,
+        guest_email: trimmedEmail || null,
         guest_phone: phone || null,
         status: "pending",
         subtotal,
@@ -97,7 +106,7 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
+        email: paystackCustomerEmail,
         amount: amountInPesewas,
         currency: "GHS",
         reference: orderNumber,

@@ -7,9 +7,13 @@ import { Container } from "@/components/shared/container"
 import { Section } from "@/components/shared/section"
 import { Heading } from "@/components/shared/heading"
 import { ProductCard } from "@/components/shared/product-card"
-import { products } from "@/lib/mock-data"
+import type { Product } from "@/types/product"
 
-export function TrendingCarousel() {
+export type TrendingCarouselProps = {
+  products: Product[]
+}
+
+export function TrendingCarousel({ products }: TrendingCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const trending = products.slice(0, 6)
 
@@ -21,6 +25,8 @@ export function TrendingCarousel() {
     })
   }
 
+  if (trending.length === 0) return null
+
   return (
     <Section className="overflow-hidden">
       <Container>
@@ -31,6 +37,7 @@ export function TrendingCarousel() {
 
           <div className="hidden gap-2 sm:flex">
             <button
+              type="button"
               onClick={() => scroll("left")}
               aria-label="Scroll left"
               className="flex size-10 items-center justify-center rounded-full border border-rose-border transition-colors hover:border-rose-primary/30 hover:bg-rose-light"
@@ -38,6 +45,7 @@ export function TrendingCarousel() {
               <ChevronLeft className="size-5 text-navy" />
             </button>
             <button
+              type="button"
               onClick={() => scroll("right")}
               aria-label="Scroll right"
               className="flex size-10 items-center justify-center rounded-full border border-rose-border transition-colors hover:border-rose-primary/30 hover:bg-rose-light"

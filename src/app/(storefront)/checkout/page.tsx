@@ -17,7 +17,12 @@ import {
   Package,
   MessageCircle,
 } from "lucide-react"
-import { cn, formatPrice, generateOrderNumber } from "@/lib/utils"
+import {
+  cn,
+  formatPrice,
+  generateOrderNumber,
+  FREE_SHIPPING_THRESHOLD_GHS,
+} from "@/lib/utils"
 import { Container } from "@/components/shared/container"
 import { useCartStore } from "@/lib/store/cart-store"
 import { getProductPrimaryImageUrl } from "@/lib/product-image"
@@ -82,20 +87,14 @@ const steps = [
 const paymentMethods = [
   {
     id: "paystack",
-    name: "Paystack",
-    description: "Cards, bank transfers & mobile money via Paystack",
+    name: "Card Payment",
+    description: "Debit & credit cards, bank transfer & more (via Paystack)",
     recommended: true,
   },
   {
     id: "moolre",
-    name: "Moolre",
-    description: "Pay securely with Moolre mobile money & cards",
-    recommended: false,
-  },
-  {
-    id: "flutterwave",
-    name: "Flutterwave",
-    description: "Multiple payment options across Africa",
+    name: "Mobile Money",
+    description: "Pay with mobile money from your network",
     recommended: false,
   },
 ]
@@ -207,7 +206,7 @@ export default function CheckoutPage() {
     [items],
   )
 
-  const freeShipping = subtotal > 500
+  const freeShipping = subtotal >= FREE_SHIPPING_THRESHOLD_GHS
 
   const shippingCost = useMemo(() => {
     if (freeShipping) return 0
@@ -224,7 +223,6 @@ export default function CheckoutPage() {
   }
 
   const canProceedStep1 =
-    formData.email.trim() !== "" &&
     formData.phone.trim() !== "" &&
     formData.firstName.trim() !== "" &&
     formData.lastName.trim() !== "" &&
@@ -476,10 +474,10 @@ export default function CheckoutPage() {
                         Contact Information
                       </h3>
                       <div className="grid gap-4 sm:grid-cols-2">
-                        <FormField label="Email" required>
+                        <FormField label="Email">
                           <Input
                             type="email"
-                            placeholder="your@email.com"
+                            placeholder="Optional · your@email.com"
                             value={formData.email}
                             onChange={(e) =>
                               updateField("email", e.target.value)
@@ -649,14 +647,14 @@ export default function CheckoutPage() {
                       {
                         id: "standard",
                         name: "Standard Delivery",
-                        estimate: "3–5 business days",
+                        estimate: "1 to 2 days",
                         price: freeShipping ? 0 : 25,
                         icon: Truck,
                       },
                       {
                         id: "express",
-                        name: "Express Delivery",
-                        estimate: "1–2 business days",
+                        name: "Instant Delivery",
+                        estimate: "Same day",
                         price: freeShipping ? 0 : 50,
                         icon: Zap,
                       },
@@ -701,7 +699,7 @@ export default function CheckoutPage() {
                       className="mt-4 text-center text-sm text-emerald-600"
                     >
                       ✨ You qualify for free shipping on orders over{" "}
-                      {formatPrice(500)}
+                      {formatPrice(FREE_SHIPPING_THRESHOLD_GHS)}
                     </motion.p>
                   )}
 
@@ -882,8 +880,8 @@ export default function CheckoutPage() {
                         </h3>
                         <p className="text-sm text-navy">
                           {formData.shippingMethod === "express"
-                            ? "Express (1–2 business days)"
-                            : "Standard (3–5 business days)"}
+                            ? "Instant Delivery (same day)"
+                            : "Standard Delivery (1 to 2 days)"}
                         </p>
                       </div>
                       <div>

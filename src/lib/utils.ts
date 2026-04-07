@@ -5,6 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+/** Subtotal in GHS at or above which standard shipping is free */
+export const FREE_SHIPPING_THRESHOLD_GHS = 2000
+
+/** e.g. "GH₵ 2,000" for banners and policy copy */
+export function formatFreeShippingMinimumLabel(): string {
+  return `GH₵ ${FREE_SHIPPING_THRESHOLD_GHS.toLocaleString("en-GH")}`
+}
+
 export function formatPrice(amount: number, currency: string = "GH₵"): string {
   return `${currency} ${amount.toLocaleString("en-GH", {
     minimumFractionDigits: 2,

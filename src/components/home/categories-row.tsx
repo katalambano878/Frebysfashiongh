@@ -35,8 +35,6 @@ export function CategoriesRow() {
     void loadCategories()
   }, [])
 
-  const displayCategories = categories.slice(0, 4)
-
   return (
     <Section className="pt-8 pb-6 sm:pt-10 sm:pb-8">
       <Container>
@@ -59,21 +57,21 @@ export function CategoriesRow() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {Array.from({ length: 4 }).map((_, i) => (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {Array.from({ length: 10 }).map((_, i) => (
               <div
                 key={i}
                 className="aspect-[4/3] animate-pulse rounded-3xl bg-slate-100"
               />
             ))}
           </div>
-        ) : displayCategories.length === 0 ? (
+        ) : categories.length === 0 ? (
           <div className="rounded-2xl border border-rose-border/50 bg-rose-50/30 p-8 text-center text-sm text-muted-foreground">
             No categories yet. Add categories in the admin dashboard.
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {displayCategories.map((category) => {
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {categories.map((category) => {
               const imageSrc =
                 category.image_url?.trim() || MOCK_PRODUCT_IMAGE
               return (

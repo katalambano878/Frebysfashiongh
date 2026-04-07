@@ -5,7 +5,7 @@ import { ShoppingBag, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { formatPrice } from "@/lib/utils"
 import { useCartStore } from "@/lib/store/cart-store"
-import type { Product } from "@/lib/mock-data"
+import type { Product } from "@/types/product"
 import { getProductPrimaryImageUrl } from "@/lib/product-image"
 import {
   Dialog,
