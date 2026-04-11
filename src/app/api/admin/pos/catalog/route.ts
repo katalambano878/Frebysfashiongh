@@ -18,19 +18,18 @@ export async function GET() {
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
+    type ProductRow = { id: string; name: string; status: string }
     const catalog = (data ?? [])
-      .filter(
-        (row) =>
-          row.product &&
-          typeof row.product === "object" &&
-          (row.product as { status?: string }).status === "active",
-      )
+      .filter((row) => {
+        const p = Array.isArray(row.product) ? row.product[0] : row.product
+        return p && typeof p === "object" && (p as ProductRow).status === "active"
+      })
       .map((row) => {
-        const product = row.product as { id: string; name: string; status: string }
+        const p = (Array.isArray(row.product) ? row.product[0] : row.product) as ProductRow
         return {
           variantId: row.id,
           productId: row.product_id,
-          name: product.name,
+          name: p.name,
           sku: row.sku,
           price: Number(row.price ?? 0),
           stock: Number(row.stock_quantity ?? 0),
