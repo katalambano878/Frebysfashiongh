@@ -1,4 +1,4 @@
-  -- Laura's Luxury — core schema + RLS
+  -- Frebys Fashion GH — core schema + RLS
   -- Apply in Supabase SQL Editor or: supabase db push
 
   -- -----------------------------------------------------------------------------
@@ -105,7 +105,7 @@ create trigger on_auth_user_created
   -- -----------------------------------------------------------------------------
   create table if not exists public.storefront_settings (
     id smallint primary key default 1 check (id = 1),
-    store_name text not null default 'Laura''s Luxury',
+    store_name text not null default 'Frebys Fashion GH',
     announcement_bar text,
     maintenance_mode boolean not null default false,
     whatsapp_number text,

@@ -23,7 +23,7 @@ const values = [
     icon: Gem,
     title: "Quality",
     description:
-      "Every piece in our collection is hand-selected for premium craftsmanship, from the finest Italian leathers to exquisite French lace.",
+      "Every kids outfit is carefully made with quality Ankara fabric, neat finishing, and comfort in mind.",
   },
   {
     icon: ShieldCheck,
@@ -33,23 +33,23 @@ const values = [
   },
   {
     icon: Sparkles,
-    title: "Elegance",
+    title: "Style",
     description:
-      "We believe luxury should feel effortless. Our curation focuses on timeless pieces that elevate your everyday.",
+      "From casual days to luxury events, our designs help children look and feel special.",
   },
   {
     icon: Users,
     title: "Community",
     description:
-      "Laura's Luxury is more than a store — it's a sisterhood of confident women who celebrate each other through style.",
+      "Frebys Fashion GH is a trusted community for parents who love quality kids fashion.",
   },
 ]
 
 const trustPoints = [
   {
     icon: Award,
-    title: "Curated Selection",
-    description: "Only the finest pieces make it to our shelves.",
+    title: "Unique Designs",
+    description: "Every collection is created for standout kids looks.",
   },
   {
     icon: Truck,
@@ -59,12 +59,12 @@ const trustPoints = [
   {
     icon: RefreshCw,
     title: "Easy Returns",
-    description: "Hassle-free 7-day return policy on all items.",
+    description: "Simple support and quick issue resolution.",
   },
   {
     icon: Heart,
-    title: "Personal Styling",
-    description: "Complimentary styling advice via WhatsApp.",
+    title: "Friendly Support",
+    description: "Fast order support on WhatsApp: 0244720197.",
   },
 ]
 
@@ -92,13 +92,13 @@ export default function AboutPage() {
               Our Story
             </p>
             <h1 className="mt-4 font-heading text-4xl font-semibold tracking-tight text-navy sm:text-5xl lg:text-6xl">
-              Where Luxury Meets
+              Where Ankara Style Meets
               <br />
-              <span className="text-rose-primary">Everyday Elegance</span>
+              <span className="text-rose-primary">Kids Fashion</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-              Born from a passion for premium fashion and a desire to make luxury
-              accessible to every confident woman in Ghana and beyond.
+              Born from a passion for kids fashion and unique ready-to-wear
+              Ankara clothes for all occasions.
             </p>
           </motion.div>
         </Container>
@@ -117,7 +117,7 @@ export default function AboutPage() {
               <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-gradient-to-br from-rose-200 via-pink-100 to-amber-50">
                 <div className="flex h-full items-center justify-center">
                   <span className="font-heading text-8xl font-semibold text-navy/5 select-none">
-                    LL
+                    FF
                   </span>
                 </div>
               </div>
@@ -133,23 +133,17 @@ export default function AboutPage() {
               <Heading as="h2">The Beginning</Heading>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Laura&apos;s Luxury was born from a simple but powerful
-                  observation: women in Ghana deserve access to the same premium
-                  fashion and luxury essentials available anywhere in the world —
-                  without compromise on quality, authenticity, or experience.
+                  Frebys Fashion GH was built with one clear mission: to provide
+                  unique kids ready-to-wear Ankara outfits for every occasion.
                 </p>
                 <p>
-                  What started as a curated Instagram page sharing style
-                  inspiration quickly grew into a trusted destination for
-                  designer bags, elegant dresses, premium shoes, and signature
-                  perfumes. Every piece is handpicked with one woman in mind —
-                  confident, bold, and unapologetically herself.
+                  What started as a small fashion idea has grown into a trusted
+                  brand for parents looking for casual and luxury kids wear with
+                  quality finishing.
                 </p>
                 <p>
-                  Today, Laura&apos;s Luxury serves thousands of women across
-                  Accra, Kumasi, Takoradi, and beyond. From first purchases to
-                  treasured gift sets, we&apos;re honoured to be part of the
-                  moments that make women feel extraordinary.
+                  Based in Haatso, Accra, Ghana, we proudly serve families in
+                  Ghana and around the world through reliable delivery.
                 </p>
               </div>
             </motion.div>
@@ -204,7 +198,7 @@ export default function AboutPage() {
             align="center"
             subtitle="More than just a store — a commitment to excellence."
           >
-            Why Choose Laura&apos;s Luxury
+            Why Choose Frebys Fashion GH
           </Heading>
 
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -242,18 +236,18 @@ export default function AboutPage() {
             className="mx-auto max-w-xl"
           >
             <h2 className="font-heading text-3xl font-semibold text-navy sm:text-4xl">
-              Ready to Elevate Your Style?
+              Ready to Dress Your Kids in Style?
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Discover our curated collections of bags, dresses, shoes,
-              perfumes, and more — all chosen with you in mind.
+              Explore unique Ankara pieces for casual days, celebrations, and
+              luxury occasions.
             </p>
             <Button
               className="mt-8 rounded-xl bg-rose-primary px-8 py-3 text-white hover:bg-rose-primary/90"
               size="lg"
               render={<Link href="/shop" />}
             >
-              Explore Our Collections
+              Shop Kids Collections
             </Button>
           </motion.div>
         </Container>

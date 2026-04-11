@@ -44,6 +44,6 @@ export const useWishlistStore = create<WishlistState>()(
 
       clearWishlist: () => set({ items: [] }),
     }),
-    { name: "lauras-luxury-wishlist" }
+    { name: "frebys-fashion-gh-wishlist" }
   )
 )

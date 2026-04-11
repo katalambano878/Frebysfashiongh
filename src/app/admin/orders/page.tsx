@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useMemo } from "react"
+import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { formatPrice, cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
@@ -26,6 +27,15 @@ const statusStyles: Record<string, string> = {
   refunded: "bg-slate-100 text-slate-600",
 }
 
+type OrderRow = {
+  id: string
+  order_number: string
+  created_at: string
+  guest_email: string | null
+  status: string
+  grand_total: number
+}
+
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-US", {
     month: "short",
@@ -35,7 +45,7 @@ function formatDate(date: string) {
 }
 
 export default function OrdersPage() {
-  const [orders, setOrders] = useState<any[]>([])
+  const [orders, setOrders] = useState<OrderRow[]>([])
   const [loading, setLoading] = useState(true)
   const [activeFilter, setActiveFilter] = useState<string>("all")
 
@@ -130,7 +140,12 @@ export default function OrdersPage() {
                       className="text-slate-700 transition-colors hover:bg-slate-50"
                     >
                       <td className="px-6 py-4 font-medium text-slate-800">
-                        {order.order_number}
+                        <Link
+                          href={`/admin/orders/${order.id}`}
+                          className="text-rose-700 hover:text-rose-600 hover:underline"
+                        >
+                          {order.order_number}
+                        </Link>
                       </td>
                       <td className="px-6 py-4 text-slate-500">
                         {formatDate(order.created_at)}

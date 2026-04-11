@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import {
   User,
@@ -12,6 +13,7 @@ import {
   Plus,
   ChevronRight,
   ShoppingBag,
+  LogOut,
 } from "lucide-react"
 import { Container } from "@/components/shared/container"
 import { Section } from "@/components/shared/section"
@@ -19,6 +21,7 @@ import { Heading } from "@/components/shared/heading"
 import { ProductCard } from "@/components/shared/product-card"
 import { useWishlistStore } from "@/lib/store/wishlist-store"
 import { formatPrice } from "@/lib/utils"
+import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -36,21 +39,21 @@ const tabs = [
 
 const mockOrders = [
   {
-    id: "LL-7K3F-A2XN",
+    id: "FF-7K3F-A2XN",
     date: "March 18, 2026",
     status: "Delivered" as const,
     items: 2,
     total: 730,
   },
   {
-    id: "LL-9M1P-D4YZ",
+    id: "FF-9M1P-D4YZ",
     date: "March 12, 2026",
     status: "Shipped" as const,
     items: 1,
     total: 280,
   },
   {
-    id: "LL-5R8W-G7HQ",
+    id: "FF-5R8W-G7HQ",
     date: "March 8, 2026",
     status: "Processing" as const,
     items: 3,
@@ -68,23 +71,23 @@ const mockAddresses = [
   {
     id: "addr-1",
     label: "Home",
-    name: "Laura Mensah",
+    name: "Ama Mensah",
     line1: "12 Independence Avenue",
     line2: "East Legon",
     city: "Accra",
     region: "Greater Accra",
-    phone: "+233 24 123 4567",
+    phone: "+233 24 472 0197",
     isDefault: true,
   },
   {
     id: "addr-2",
     label: "Office",
-    name: "Laura Mensah",
+    name: "Ama Mensah",
     line1: "45 Liberation Road",
     line2: "Ridge Tower, Floor 3",
     city: "Accra",
     region: "Greater Accra",
-    phone: "+233 20 987 6543",
+    phone: "+233 24 472 0197",
     isDefault: false,
   },
 ]
@@ -120,7 +123,7 @@ function ProfileTab() {
           <Label htmlFor="firstName">First Name</Label>
           <Input
             id="firstName"
-            defaultValue="Laura"
+            defaultValue="Ama"
             className="h-10 rounded-xl border-rose-border focus-visible:border-rose-primary focus-visible:ring-rose-primary/20"
           />
         </div>
@@ -137,7 +140,7 @@ function ProfileTab() {
           <Input
             id="email"
             type="email"
-            defaultValue="laura@example.com"
+            defaultValue="parent@example.com"
             className="h-10 rounded-xl border-rose-border focus-visible:border-rose-primary focus-visible:ring-rose-primary/20"
           />
         </div>
@@ -146,7 +149,7 @@ function ProfileTab() {
           <Input
             id="phone"
             type="tel"
-            defaultValue="+233 24 123 4567"
+            defaultValue="+233 24 472 0197"
             className="h-10 rounded-xl border-rose-border focus-visible:border-rose-primary focus-visible:ring-rose-primary/20"
           />
         </div>
@@ -439,15 +442,38 @@ function AddressesTab() {
 }
 
 export default function AccountPage() {
+  const router = useRouter()
+  const [loggingOut, setLoggingOut] = useState(false)
+
+  async function handleLogout() {
+    setLoggingOut(true)
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push("/auth/login")
+    router.refresh()
+  }
+
   return (
     <Section className="min-h-screen bg-gradient-to-b from-rose-light/50 to-white">
       <Container>
-        <Heading
-          as="h1"
-          subtitle="Manage your profile, orders, wishlist, and delivery addresses."
-        >
-          My Account
-        </Heading>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <Heading
+            as="h1"
+            subtitle="Manage your profile, orders, wishlist, and delivery addresses."
+          >
+            My Account
+          </Heading>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleLogout}
+            disabled={loggingOut}
+            className="mt-1 shrink-0 rounded-xl border-rose-border text-navy hover:border-rose-primary hover:text-rose-primary"
+          >
+            <LogOut className="mr-2 size-4" />
+            {loggingOut ? "Logging out..." : "Log Out"}
+          </Button>
+        </div>
 
         <div className="mt-10">
           <Tabs defaultValue="profile">

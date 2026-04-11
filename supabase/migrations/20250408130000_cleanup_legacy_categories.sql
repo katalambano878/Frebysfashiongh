@@ -1,42 +1,31 @@
--- Sync catalog to the 14 canonical categories, then remove anything else.
+-- Sync catalog to the canonical kids categories, then remove anything else.
 -- Products linked to deleted categories get category_id = null (FK).
 
-insert into public.categories (name, slug, description, sort_order, is_active)
+insert into public.categories (name, slug, description, sort_order, is_active, is_featured_on_home)
 values
-  ('Dresses', 'dresses', 'Dresses for every occasion', 1, true),
-  ('Two piece', 'two-piece', 'Coordinated two-piece sets', 2, true),
-  ('Tops', 'tops', 'Blouses, shirts, and tops', 3, true),
-  ('Jeans', 'jeans', 'Denim fits you will love', 4, true),
-  ('Bags', 'bags', 'Handbags and everyday bags', 5, true),
-  ('Watches', 'watches', 'Timepieces and wristwear', 6, true),
-  ('Perfumes', 'perfumes', 'Fragrances and scents', 7, true),
-  ('Sunglasses', 'sunglasses', 'Eyewear and sun protection', 8, true),
-  ('Shoes', 'shoes', 'Footwear for every look', 9, true),
-  ('Heels', 'heels', 'Heels and elevated styles', 10, true),
-  ('Slippers', 'slippers', 'Comfortable slip-ons', 11, true),
-  ('Jewelries', 'jewelries', 'Jewelry and accessories', 12, true),
-  ('Luggage', 'luggage', 'Travel bags and luggage', 13, true),
-  ('Men', 'men', 'Men''s collection', 14, true)
+  ('Girls Ankara Dresses', 'girls-ankara-dresses', 'Stylish Ankara dresses for girls of all ages', 1, true, true),
+  ('Boys Ankara Sets', 'boys-ankara-sets', 'Smart and comfortable Ankara sets for boys', 2, true, true),
+  ('Two-Piece Sets', 'two-piece-sets', 'Matching kids two-piece Ankara outfits', 3, true, true),
+  ('Occasion Wear', 'occasion-wear', 'Luxury kids wear for weddings and celebrations', 4, true, true),
+  ('Casual Wear', 'casual-wear', 'Everyday Ankara looks for school and outings', 5, true, false),
+  ('Family Matching', 'family-matching', 'Coordinated family Ankara looks for events', 6, true, false),
+  ('Kids Accessories', 'kids-accessories', 'Accessories that complete every kids outfit', 7, true, false),
+  ('New Arrivals', 'new-arrivals', 'Freshly added kids styles and limited drops', 8, true, false)
 on conflict (slug) do update set
   name = excluded.name,
   description = excluded.description,
   sort_order = excluded.sort_order,
-  is_active = excluded.is_active;
+  is_active = excluded.is_active,
+  is_featured_on_home = excluded.is_featured_on_home;
 
 delete from public.categories
 where lower(trim(slug)) not in (
-  'dresses',
-  'two-piece',
-  'tops',
-  'jeans',
-  'bags',
-  'watches',
-  'perfumes',
-  'sunglasses',
-  'shoes',
-  'heels',
-  'slippers',
-  'jewelries',
-  'luggage',
-  'men'
+  'girls-ankara-dresses',
+  'boys-ankara-sets',
+  'two-piece-sets',
+  'occasion-wear',
+  'casual-wear',
+  'family-matching',
+  'kids-accessories',
+  'new-arrivals'
 );

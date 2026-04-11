@@ -9,12 +9,12 @@ import { formatPrice } from "@/lib/utils"
 import type { ProductSearchResult } from "@/types/product-search"
 
 const popularSearches = [
-  "Rosé Quilted Tote",
-  "Silk Wrap Dress",
-  "Velvet Rose Perfume",
-  "Kitten Heels",
-  "Pearl Earrings",
-  "Gift Sets",
+  "Girls Ankara Dress",
+  "Boys Ankara Set",
+  "Two-Piece Kids Set",
+  "Kids Occasion Wear",
+  "Sibling Matching Outfit",
+  "Kids Accessories",
 ]
 
 type SearchOverlayProps = {
@@ -105,7 +105,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
               <input
                 ref={inputRef}
                 type="text"
-                placeholder="Search bags, dresses, perfumes..."
+                placeholder="Search kids Ankara dresses, sets, and occasion wear..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 className="h-12 w-full rounded-2xl border border-rose-border bg-rose-light/30 pl-12 pr-12 font-sans text-base text-navy placeholder:text-navy/30 transition-all focus:border-rose-primary focus:outline-none focus:ring-2 focus:ring-rose-primary/20"

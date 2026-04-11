@@ -1,4 +1,4 @@
-# Supabase — Laura's Luxury
+# Supabase — Frebys Fashion GH
 
 ## Apply the database
 
@@ -23,7 +23,7 @@ insert into public.superadmins (email) values ('you@yourdomain.com')
 on conflict (email) do nothing;
 
 -- Store owner / staff admin list
-insert into public.store_admins (email) values ('owner@laurasluxury.com')
+insert into public.store_admins (email) values ('owner@frebysfashiongh.com')
 on conflict (email) do nothing;
 ```
 

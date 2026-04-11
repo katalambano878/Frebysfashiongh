@@ -7,50 +7,47 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 const shopLinks = [
-  { href: "/shop?category=dresses", label: "Dresses" },
-  { href: "/shop?category=bags", label: "Bags" },
-  { href: "/shop?category=shoes", label: "Shoes" },
-  { href: "/shop?category=perfumes", label: "Perfumes" },
-  { href: "/shop?category=jewelries", label: "Jewelries" },
-  { href: "/shop?category=men", label: "Men" },
+  { href: "/shop?category=girls-ankara-dresses", label: "Girls Ankara Dresses" },
+  { href: "/shop?category=boys-ankara-sets", label: "Boys Ankara Sets" },
+  { href: "/shop?category=two-piece-sets", label: "Two-Piece Sets" },
+  { href: "/shop?category=occasion-wear", label: "Occasion Wear" },
+  { href: "/shop?category=casual-wear", label: "Casual Wear" },
+  { href: "/shop?category=kids-accessories", label: "Kids Accessories" },
 ]
 
 const careLinks = [
   { href: "/contact", label: "Contact Us" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/shipping", label: "Shipping & Delivery" },
-  { href: "/returns", label: "Returns & Exchanges" },
-  { href: "/size-guide", label: "Size Guide" },
+  { href: "/policies/shipping", label: "Shipping & Delivery" },
+  { href: "/policies/returns", label: "Returns & Exchanges" },
+  { href: "/policies/privacy", label: "Privacy Policy" },
   { href: "/track-order", label: "Track Your Order" },
 ]
 
 const aboutLinks = [
   { href: "/about", label: "Our Story" },
-  { href: "/blog", label: "Blog & Style Guide" },
-  { href: "/careers", label: "Careers" },
-  { href: "/privacy", label: "Privacy Policy" },
-  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/blog", label: "Kids Style Journal" },
+  { href: "/policies/terms", label: "Terms & Conditions" },
 ]
 
 const socials = [
   {
     label: "Instagram",
-    href: "#",
+    href: "https://instagram.com/frebysfashiongh",
     iconSrc: "https://cdn.simpleicons.org/instagram/FFFFFF",
   },
   {
     label: "X",
-    href: "#",
+    href: "https://x.com/frebysfashiongh",
     iconSrc: "https://cdn.simpleicons.org/x/FFFFFF",
   },
   {
     label: "Facebook",
-    href: "#",
+    href: "https://facebook.com/frebysfashiongh",
     iconSrc: "https://cdn.simpleicons.org/facebook/FFFFFF",
   },
   {
     label: "TikTok",
-    href: "#",
+    href: "https://tiktok.com/@frebysfashiongh",
     iconSrc: "https://cdn.simpleicons.org/tiktok/FFFFFF",
   },
 ] as const
@@ -113,8 +110,8 @@ export function Footer() {
               Stay in Touch
             </h3>
             <p className="mb-4 text-sm text-white/60">
-              Be the first to know about new arrivals, exclusive offers, and
-              style inspiration.
+              New kids Ankara arrivals, luxury occasion looks, and updates from
+              Frebys Fashion GH.
             </p>
             <form
               onSubmit={(e) => {
@@ -143,7 +140,7 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-8 sm:flex-row">
           <p className="text-xs text-white/40">
-            &copy; 2026 Laura&apos;s Luxury. All rights reserved.
+            &copy; 2026 Frebys Fashion GH. All rights reserved.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-1.5 sm:justify-start">

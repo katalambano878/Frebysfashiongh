@@ -33,6 +33,41 @@ type VariantRow = {
 
 const BADGE_OPTIONS = ["New", "Best Seller", "Limited", "Sale"]
 
+function slugifyName(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
+function abbreviateOptionValues(options: string) {
+  if (!options.trim()) return "BASE"
+  const parts = options
+    .split(",")
+    .map((chunk) => chunk.trim())
+    .filter(Boolean)
+    .map((chunk) => {
+      const [, right] = chunk.split(":").map((s) => s.trim())
+      const value = (right || chunk).replace(/[^a-z0-9]/gi, "").toUpperCase()
+      return value.slice(0, 3)
+    })
+    .filter(Boolean)
+  return parts.length ? parts.join("") : "BASE"
+}
+
+function regenerateVariantSkus(productName: string, rows: VariantRow[]) {
+  const slug = slugifyName(productName)
+  const base = (slug.replace(/-/g, "").toUpperCase() || "PRODUCT").slice(0, 8)
+  return rows.map((row, index) => {
+    const optionCode = abbreviateOptionValues(row.options)
+    return {
+      ...row,
+      sku: `FF-${base}-${optionCode}-${String(index + 1).padStart(2, "0")}`,
+    }
+  })
+}
+
 export default function NewProductPage() {
   const router = useRouter()
   const [saving, setSaving] = useState(false)
@@ -69,16 +104,9 @@ export default function NewProductPage() {
   }, [])
 
   useEffect(() => {
-    if (name && !slug) {
-      setSlug(
-        name
-          .toLowerCase()
-          .replace(/[^\w\s-]/g, "")
-          .replace(/[\s_-]+/g, "-")
-          .replace(/^-+|-+$/g, "")
-      )
-    }
-  }, [name, slug])
+    setSlug(slugifyName(name))
+    setVariants((prev) => regenerateVariantSkus(name, prev))
+  }, [name])
 
   function toggleBadge(badge: string) {
     setBadges((prev) =>
@@ -87,20 +115,23 @@ export default function NewProductPage() {
   }
 
   function addVariant() {
-    setVariants((prev) => [
-      ...prev,
-      { key: crypto.randomUUID(), sku: "", price: "", compareAtPrice: "", stock: "0", options: "" },
-    ])
+    setVariants((prev) =>
+      regenerateVariantSkus(name, [
+        ...prev,
+        { key: crypto.randomUUID(), sku: "", price: "", compareAtPrice: "", stock: "0", options: "" },
+      ]),
+    )
   }
 
   function removeVariant(key: string) {
-    setVariants((prev) => prev.filter((v) => v.key !== key))
+    setVariants((prev) => regenerateVariantSkus(name, prev.filter((v) => v.key !== key)))
   }
 
   function updateVariant(key: string, field: keyof VariantRow, value: string) {
-    setVariants((prev) =>
-      prev.map((v) => (v.key === key ? { ...v, [field]: value } : v))
-    )
+    setVariants((prev) => {
+      const next = prev.map((v) => (v.key === key ? { ...v, [field]: value } : v))
+      return regenerateVariantSkus(name, next)
+    })
   }
 
   async function handleSave() {
@@ -110,12 +141,8 @@ export default function NewProductPage() {
       setError("Product name is required")
       return
     }
-    if (!slug.trim()) {
-      setError("Slug is required")
-      return
-    }
-    if (variants.some((v) => !v.sku.trim() || !v.price.trim())) {
-      setError("Each variant needs a SKU and price")
+    if (variants.some((v) => !v.price.trim())) {
+      setError("Each variant needs a price")
       return
     }
 
@@ -232,17 +259,8 @@ export default function NewProductPage() {
                   value={name}
                   onChange={(e) => {
                     setName(e.target.value)
-                    if (!slug || slug === name.toLowerCase().replace(/[^\w\s-]/g, "").replace(/[\s_-]+/g, "-").replace(/^-+|-+$/g, "")) {
-                      setSlug(
-                        e.target.value
-                          .toLowerCase()
-                          .replace(/[^\w\s-]/g, "")
-                          .replace(/[\s_-]+/g, "-")
-                          .replace(/^-+|-+$/g, "")
-                      )
-                    }
                   }}
-                  placeholder="e.g. Rosé Quilted Tote"
+                  placeholder="e.g. Girls Ankara Occasion Dress"
                   className="rounded-lg"
                 />
               </div>
@@ -251,9 +269,9 @@ export default function NewProductPage() {
                 <Input
                   id="slug"
                   value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
-                  placeholder="rose-quilted-tote"
-                  className="rounded-lg font-mono text-sm"
+                  readOnly
+                  placeholder="girls-ankara-occasion-dress"
+                  className="rounded-lg bg-slate-50 font-mono text-sm text-slate-600"
                 />
               </div>
               <div className="space-y-1.5">
@@ -299,9 +317,9 @@ export default function NewProductPage() {
                     <Label className="text-xs">SKU *</Label>
                     <Input
                       value={v.sku}
-                      onChange={(e) => updateVariant(v.key, "sku", e.target.value)}
-                      placeholder="LL-BAG-001"
-                      className="rounded-lg text-sm"
+                      readOnly
+                      placeholder="Auto-generated"
+                      className="rounded-lg bg-slate-50 font-mono text-sm text-slate-600"
                     />
                   </div>
                   <div className="space-y-1">

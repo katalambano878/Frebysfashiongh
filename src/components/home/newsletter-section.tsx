@@ -29,7 +29,7 @@ export function NewsletterSection() {
             Stay in the Loop
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Be the first to know about new arrivals, exclusive offers, and style tips.
+            Get updates on fresh kids Ankara drops, special offers, and styling tips.
           </p>
 
           {submitted ? (
@@ -39,7 +39,7 @@ export function NewsletterSection() {
               className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 px-6 py-5"
             >
               <p className="text-sm font-semibold text-emerald-700">
-                Welcome to the inner circle! Check your inbox for a surprise.
+                Thanks for joining Frebys Fashion GH updates.
               </p>
             </motion.div>
           ) : (
@@ -65,7 +65,7 @@ export function NewsletterSection() {
           <div className="mt-6 flex items-center justify-center gap-1.5 text-sm text-muted-foreground">
             <span>Or chat with us on</span>
             <a
-              href="https://wa.me/233000000000"
+              href="https://wa.me/233244720197"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 font-semibold text-emerald-600 transition-colors hover:text-emerald-500"

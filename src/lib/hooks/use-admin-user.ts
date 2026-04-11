@@ -16,6 +16,7 @@ export function useAdminUser() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<AdminProfile | null>(null)
+  const [permissions, setPermissions] = useState<Record<string, boolean>>({})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export function useAdminUser() {
       if (!u) {
         setUser(null)
         setProfile(null)
+        setPermissions({})
         setLoading(false)
         return
       }
@@ -47,8 +49,17 @@ export function useAdminUser() {
           full_name: row.full_name,
           role: row.role,
         })
+
+        const { data: rolePermissions } = await supabase
+          .from("role_permissions")
+          .select("permissions")
+          .eq("role", row.role)
+          .single()
+        if (cancelled) return
+        setPermissions((rolePermissions?.permissions as Record<string, boolean> | null) ?? {})
       } else {
         setProfile(null)
+        setPermissions({})
       }
       setLoading(false)
     }
@@ -74,5 +85,5 @@ export function useAdminUser() {
     router.refresh()
   }, [router])
 
-  return { user, profile, loading, signOut }
+  return { user, profile, permissions, loading, signOut }
 }

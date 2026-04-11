@@ -18,7 +18,7 @@ const sections = [
     value: "delivery-areas",
     icon: MapPin,
     title: "Delivery Areas",
-    content: `Laura's Luxury currently delivers across all regions of Ghana. Our primary delivery zones include:
+    content: `Frebys Fashion GH currently delivers across all regions of Ghana. Our primary delivery zones include:
 
 **Greater Accra** — Standard delivery within 1–2 business days. Same-day delivery available for orders placed before 12:00 PM within Accra Metropolitan Area.
 
@@ -72,7 +72,7 @@ Our tracking statuses include:
 — **Shipped** – Your order is en route with our courier partner.
 — **Delivered** – Your order has been successfully delivered.
 
-If your tracking hasn't updated in over 48 hours, please contact us via WhatsApp at +233 24 123 4567.`,
+If your tracking hasn't updated in over 48 hours, please contact us via WhatsApp at +233 24 472 0197.`,
   },
   {
     value: "international",
@@ -106,7 +106,7 @@ export default function ShippingPolicyPage() {
           <Heading
             as="h1"
             align="center"
-            subtitle="Everything you need to know about how we get your luxury pieces to your doorstep."
+            subtitle="Everything you need to know about how we deliver kids Ankara wear to your doorstep."
           >
             Shipping Policy
           </Heading>
@@ -157,10 +157,10 @@ export default function ShippingPolicyPage() {
           >
             Last updated: March 2026. For any shipping inquiries, contact us at{" "}
             <a
-              href="mailto:hello@laurasluxury.com"
+              href="mailto:info@frebysfashiongh.com"
               className="font-medium text-rose-primary hover:underline"
             >
-              hello@laurasluxury.com
+              info@frebysfashiongh.com
             </a>
           </motion.p>
         </motion.div>

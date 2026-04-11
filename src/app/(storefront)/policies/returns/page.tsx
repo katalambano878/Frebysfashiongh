@@ -20,7 +20,7 @@ const sections = [
     title: "Return Window",
     content: [
       "We offer a 7-day return window from the date of delivery. To be eligible for a return, your item must be unused, unworn, and in its original packaging with all tags attached.",
-      "To initiate a return, contact our team via WhatsApp at +233 24 123 4567 or email hello@laurasluxury.com within 7 days of receiving your order. Please include your order number and reason for return.",
+      "To initiate a return, contact our team via WhatsApp at +233 24 472 0197 or email info@frebysfashiongh.com within 7 days of receiving your order. Please include your order number and reason for return.",
     ],
   },
   {
@@ -28,8 +28,8 @@ const sections = [
     title: "Return Conditions",
     content: [
       "Items must be in their original, unworn condition with all tags and packaging intact.",
-      "Perfumes and body mists can only be returned if sealed and unopened.",
-      "Intimate accessories such as earrings are non-returnable for hygiene reasons unless received damaged or defective.",
+      "Custom-sized or personalized kids outfits may not be eligible for return unless received damaged or defective.",
+      "Items showing signs of wear, stains, or alteration are not eligible for return.",
       "Sale items marked as 'Final Sale' are not eligible for returns.",
       "Gift items may be exchanged for store credit of equal value.",
     ],
@@ -72,7 +72,7 @@ const sections = [
     content: [
       "If you receive a damaged, defective, or incorrect item, please contact us immediately — ideally within 48 hours of delivery.",
       "Provide clear photos of the issue along with your order number. We'll arrange a free return pickup and send you a replacement or full refund at no extra cost.",
-      "Laura's Luxury stands behind the quality of every product we sell. Your satisfaction is our priority.",
+      "Frebys Fashion GH stands behind the quality of every product we sell. Your satisfaction is our priority.",
     ],
   },
 ]
@@ -149,12 +149,12 @@ export default function ReturnsPolicyPage() {
           >
             Last updated: March 2026. For return inquiries, contact us at{" "}
             <a
-              href="mailto:hello@laurasluxury.com"
+              href="mailto:info@frebysfashiongh.com"
               className="font-medium text-rose-primary hover:underline"
             >
-              hello@laurasluxury.com
+              info@frebysfashiongh.com
             </a>{" "}
-            or WhatsApp +233 24 123 4567.
+            or WhatsApp +233 24 472 0197.
           </motion.p>
         </motion.div>
       </Container>

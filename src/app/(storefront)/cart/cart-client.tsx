@@ -67,7 +67,7 @@ export default function CartPageClient({
   const estimatedTotal = subtotal - discount
 
   const handleApplyCoupon = () => {
-    if (couponCode.trim().toUpperCase() === "LUXURY10") {
+    if (couponCode.trim().toUpperCase() === "FREBYS10") {
       setCouponApplied(true)
     }
   }
@@ -328,7 +328,7 @@ export default function CartPageClient({
                       {couponApplied && (
                         <div className="flex justify-between text-sm">
                           <span className="text-emerald-600">
-                            Discount (LUXURY10)
+                            Discount (FREBYS10)
                           </span>
                           <span className="font-medium text-emerald-600">
                             -{formatPrice(discount)}

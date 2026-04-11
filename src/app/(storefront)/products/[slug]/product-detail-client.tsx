@@ -539,7 +539,7 @@ function ProductDetailInner({
                     <p className="text-[11px] font-semibold uppercase tracking-wider text-navy/70">
                       Returns
                     </p>
-                    <p className="text-xs text-navy">14-day window</p>
+                    <p className="text-xs text-navy">7-day window</p>
                   </div>
                 </div>
               </div>
@@ -572,13 +572,13 @@ function ProductDetailInner({
                           processed within 1–2 business days.
                         </p>
                         <p>
-                          Returns are accepted within 14 days of delivery. Items
+                          Returns are accepted within 7 days of delivery. Items
                           must be unused, in original packaging, and accompanied
                           by a receipt.
                         </p>
                         <p>
                           For more details, visit our Shipping & Returns page or
-                          contact our concierge team.
+                          contact our support team on WhatsApp.
                         </p>
                       </div>
                     </AccordionContent>

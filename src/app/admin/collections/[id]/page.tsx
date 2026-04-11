@@ -1,16 +1,17 @@
 "use client"
 
-import { use, useEffect, useMemo, useState } from "react"
+import { use, useEffect, useMemo, useState, type ChangeEvent } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
+import { uploadImageFile } from "@/lib/admin/upload-image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, Loader2, Save, Search } from "lucide-react"
+import { ArrowLeft, Image as ImageIcon, Loader2, Save, Search, Upload } from "lucide-react"
 
 export default function EditCollectionPage({
   params,
@@ -28,6 +29,8 @@ export default function EditCollectionPage({
   const [sortOrder, setSortOrder] = useState("0")
   const [isActive, setIsActive] = useState(true)
   const [collectionType, setCollectionType] = useState("manual")
+  const [uploadingImage, setUploadingImage] = useState(false)
+  const [uploadError, setUploadError] = useState("")
 
   const [catalogProducts, setCatalogProducts] = useState<
     { id: string; name: string }[]
@@ -132,6 +135,21 @@ export default function EditCollectionPage({
     router.refresh()
   }
 
+  const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    setUploadingImage(true)
+    setUploadError("")
+    const { url, error } = await uploadImageFile(file, "site-media")
+    if (error) {
+      setUploadError(error)
+    } else if (url) {
+      setImageUrl(url)
+    }
+    setUploadingImage(false)
+    event.target.value = ""
+  }
+
   if (loading) {
     return (
       <div className="flex justify-center py-24">
@@ -184,12 +202,40 @@ export default function EditCollectionPage({
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="img">Image URL</Label>
-            <Input
-              id="img"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-            />
+            <Label>Collection Image</Label>
+            <div className="flex items-center gap-3">
+              <div className="flex size-16 items-center justify-center overflow-hidden rounded-lg border bg-white">
+                {imageUrl ? (
+                  <img src={imageUrl} alt="Collection preview" className="size-full object-cover" />
+                ) : (
+                  <ImageIcon className="size-5 text-slate-300" />
+                )}
+              </div>
+              <div className="space-y-2">
+                <label>
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+                    className="hidden"
+                    onChange={(e) => void handleImageUpload(e)}
+                  />
+                  <span className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border px-3 py-2 text-sm hover:bg-slate-50">
+                    {uploadingImage ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      <Upload className="size-4" />
+                    )}
+                    Upload image
+                  </span>
+                </label>
+                {imageUrl && (
+                  <Button type="button" variant="ghost" size="sm" onClick={() => setImageUrl("")}>
+                    Remove image
+                  </Button>
+                )}
+              </div>
+            </div>
+            {uploadError ? <p className="text-xs text-red-600">{uploadError}</p> : null}
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="sort">Sort order</Label>

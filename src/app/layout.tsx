@@ -16,24 +16,24 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "Laura's Luxury — Premium Women's Fashion & Essentials",
-    template: "%s | Laura's Luxury",
+    default: "Frebys Fashion GH — Kids Ready-to-Wear Ankara Clothes",
+    template: "%s | Frebys Fashion GH",
   },
   description:
-    "Curated luxury bags, dresses, shoes, perfumes & accessories for the confident woman. Shop authentic premium fashion with fast delivery across Ghana.",
+    "Unique kids wear for all occasions. Passion for kids fashion with casual and luxury Ankara styles, worldwide delivery from Haatso, Accra, Ghana.",
   keywords: [
-    "luxury fashion",
-    "women's bags",
-    "designer dresses",
-    "premium perfumes",
-    "Ghana fashion",
-    "Laura's Luxury",
+    "kids ready to wear",
+    "ankara kids clothes",
+    "kids fashion ghana",
+    "casual kids wear",
+    "luxury kids wear",
+    "Frebys Fashion GH",
   ],
   openGraph: {
-    title: "Laura's Luxury — Premium Women's Fashion & Essentials",
+    title: "Frebys Fashion GH — Kids Ready-to-Wear Ankara Clothes",
     description:
-      "Curated luxury bags, dresses, shoes, perfumes & accessories for the confident woman.",
-    siteName: "Laura's Luxury",
+      "Unique kids wear for all occasions with casual and luxury Ankara styles.",
+    siteName: "Frebys Fashion GH",
     type: "website",
   },
 }

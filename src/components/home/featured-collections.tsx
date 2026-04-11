@@ -12,13 +12,13 @@ import { cn } from "@/lib/utils"
 const tabs = [
   { id: "new-arrivals", label: "New Arrivals" },
   { id: "best-sellers", label: "Curated Picks" },
-  { id: "perfume-picks", label: "Perfume Picks" },
+  { id: "occasion-picks", label: "Occasion Picks" },
 ] as const
 
 export type FeaturedCollectionsProps = {
   newArrivals: Product[]
   curatedPicks: Product[]
-  perfumePicks: Product[]
+  occasionPicks: Product[]
 }
 
 function getTabProducts(
@@ -30,8 +30,8 @@ function getTabProducts(
       return data.newArrivals.slice(0, 4)
     case "best-sellers":
       return data.curatedPicks.slice(0, 4)
-    case "perfume-picks":
-      return data.perfumePicks.slice(0, 4)
+    case "occasion-picks":
+      return data.occasionPicks.slice(0, 4)
     default:
       return []
   }
@@ -40,13 +40,13 @@ function getTabProducts(
 export function FeaturedCollections({
   newArrivals,
   curatedPicks,
-  perfumePicks,
+  occasionPicks,
 }: FeaturedCollectionsProps) {
   const [activeTab, setActiveTab] = useState<string>("new-arrivals")
   const activeProducts = getTabProducts(activeTab, {
     newArrivals,
     curatedPicks,
-    perfumePicks,
+    occasionPicks,
   })
 
   return (

@@ -79,10 +79,10 @@ type HeroContent = {
 }
 
 const DEFAULT_HERO: HeroContent = {
-  headline: "Luxury That Fits Your Everyday",
-  subheadline: "Bags, shoes, dresses & perfumes — curated for confident women.",
-  cta_primary: "Shop New Arrivals",
-  cta_secondary: "Explore Collections",
+  headline: "Unique Kids Wear for Every Occasion",
+  subheadline: "Passion for kids fashion with casual and luxury Ankara styles.",
+  cta_primary: "Shop Kids Collections",
+  cta_secondary: "Explore New Arrivals",
   slides: [],
 }
 
@@ -375,7 +375,7 @@ export function SettingsPageClient() {
                   <Input
                     value={storeName}
                     onChange={(e) => setStoreName(e.target.value)}
-                    placeholder="Laura's Luxury"
+                    placeholder="Frebys Fashion GH"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -386,7 +386,7 @@ export function SettingsPageClient() {
                     type="email"
                     value={supportEmail}
                     onChange={(e) => setSupportEmail(e.target.value)}
-                    placeholder="support@laurasluxury.com"
+                    placeholder="support@frebysfashiongh.com"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -410,7 +410,7 @@ export function SettingsPageClient() {
                 <Input
                   value={announcement}
                   onChange={(e) => setAnnouncement(e.target.value)}
-                  placeholder="Free shipping on orders over GH₵ 2,000"
+                  placeholder="Unique kids wear for all occasions · Casual and luxury kids wear · Worldwide delivery"
                 />
               </div>
 
@@ -538,12 +538,11 @@ export function SettingsPageClient() {
                           {uploading === "logo" ? <Loader2 className="size-3.5 animate-spin" /> : <Upload className="size-3.5" />}
                           Upload Logo
                         </Button>
-                        <Input
-                          value={logoUrl}
-                          onChange={(e) => setLogoUrl(e.target.value)}
-                          placeholder="Or paste image URL…"
-                          className="h-8 text-xs"
-                        />
+                        {logoUrl ? (
+                          <Button variant="ghost" size="sm" onClick={() => setLogoUrl("")}>
+                            Remove logo
+                          </Button>
+                        ) : null}
                       </div>
                     </div>
                   </div>
@@ -568,12 +567,11 @@ export function SettingsPageClient() {
                           {uploading === "favicon" ? <Loader2 className="size-3.5 animate-spin" /> : <Upload className="size-3.5" />}
                           Upload Favicon
                         </Button>
-                        <Input
-                          value={faviconUrl}
-                          onChange={(e) => setFaviconUrl(e.target.value)}
-                          placeholder="Or paste image URL…"
-                          className="h-8 text-xs"
-                        />
+                        {faviconUrl ? (
+                          <Button variant="ghost" size="sm" onClick={() => setFaviconUrl("")}>
+                            Remove favicon
+                          </Button>
+                        ) : null}
                       </div>
                     </div>
                   </div>
@@ -595,7 +593,7 @@ export function SettingsPageClient() {
                     <Input
                       value={heroContent.headline}
                       onChange={(e) => setHeroContent((h) => ({ ...h, headline: e.target.value }))}
-                      placeholder="Luxury That Fits Your Everyday"
+                      placeholder="Unique Kids Wear for Every Occasion"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -603,7 +601,7 @@ export function SettingsPageClient() {
                     <Input
                       value={heroContent.subheadline}
                       onChange={(e) => setHeroContent((h) => ({ ...h, subheadline: e.target.value }))}
-                      placeholder="Bags, shoes, dresses & perfumes…"
+                      placeholder="Passion for kids fashion with casual and luxury Ankara styles."
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -611,7 +609,7 @@ export function SettingsPageClient() {
                     <Input
                       value={heroContent.cta_primary}
                       onChange={(e) => setHeroContent((h) => ({ ...h, cta_primary: e.target.value }))}
-                      placeholder="Shop New Arrivals"
+                      placeholder="Shop Kids Collections"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -619,7 +617,7 @@ export function SettingsPageClient() {
                     <Input
                       value={heroContent.cta_secondary}
                       onChange={(e) => setHeroContent((h) => ({ ...h, cta_secondary: e.target.value }))}
-                      placeholder="Explore Collections"
+                      placeholder="Explore New Arrivals"
                     />
                   </div>
                 </div>
@@ -663,13 +661,7 @@ export function SettingsPageClient() {
                           )}
                         </div>
                         <div className="min-w-0 flex-1 space-y-2">
-                          <div className="flex gap-2">
-                            <Input
-                              value={slide.image_url}
-                              onChange={(e) => updateSlide(i, "image_url", e.target.value)}
-                              placeholder="Paste image URL or click thumbnail to upload"
-                              className="h-8 text-xs"
-                            />
+                          <div className="flex items-center gap-2">
                             <Button
                               variant="outline"
                               size="sm"
@@ -680,11 +672,21 @@ export function SettingsPageClient() {
                               {uploading === `slide-${i}` ? <Loader2 className="size-3 animate-spin" /> : <Upload className="size-3" />}
                               Upload
                             </Button>
+                            {slide.image_url ? (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-8 text-xs"
+                                onClick={() => updateSlide(i, "image_url", "")}
+                              >
+                                Remove image
+                              </Button>
+                            ) : null}
                           </div>
                           <Input
                             value={slide.alt}
                             onChange={(e) => updateSlide(i, "alt", e.target.value)}
-                            placeholder="Alt text (e.g. Luxury fashion)"
+                            placeholder="Alt text (e.g. Kids Ankara outfit)"
                             className="h-8 text-xs"
                           />
                         </div>

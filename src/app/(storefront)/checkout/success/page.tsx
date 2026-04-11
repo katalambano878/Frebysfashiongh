@@ -44,16 +44,22 @@ type OrderData = {
 
 const confettiColors = ["#E11D48", "#FB7185", "#F1D6DF", "#0B1B3A", "#FFF5F8"]
 
+function seededNumber(index: number, salt: number) {
+  const value = Math.sin((index + 1) * 12.9898 + salt * 78.233) * 43758.5453
+  return value - Math.floor(value)
+}
+
 function ConfettiDots() {
   const dots = useMemo(
     () =>
       Array.from({ length: 24 }, (_, i) => ({
         id: i,
-        x: Math.random() * 100,
-        delay: Math.random() * 1.5,
-        size: Math.random() * 6 + 3,
-        color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
-        drift: (Math.random() - 0.5) * 60,
+        x: seededNumber(i, 1) * 100,
+        delay: seededNumber(i, 2) * 1.5,
+        size: seededNumber(i, 3) * 6 + 3,
+        color: confettiColors[Math.floor(seededNumber(i, 4) * confettiColors.length)],
+        drift: (seededNumber(i, 5) - 0.5) * 60,
+        duration: 3.5 + seededNumber(i, 6) * 2,
       })),
     [],
   )
@@ -78,7 +84,7 @@ function ConfettiDots() {
             rotate: [0, 360],
           }}
           transition={{
-            duration: 3.5 + Math.random() * 2,
+            duration: dot.duration,
             delay: dot.delay,
             ease: "easeOut",
           }}
@@ -92,8 +98,10 @@ export default function CheckoutSuccessPage() {
   const [mounted, setMounted] = useState(false)
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   const [fallbackOrderNumber] = useState(() => generateOrderNumber())
+  const [verificationMessage, setVerificationMessage] = useState("")
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
     try {
       const data = sessionStorage.getItem("lastOrder")
@@ -102,6 +110,33 @@ export default function CheckoutSuccessPage() {
         sessionStorage.removeItem("lastOrder")
       }
     } catch {}
+
+    const params = new URLSearchParams(window.location.search)
+    const paymentSuccess = params.get("payment_success")
+    const orderNumber = params.get("order")
+    if (paymentSuccess === "true" && orderNumber) {
+      void (async () => {
+        const res = await fetch("/api/payment/moolre/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderNumber }),
+        })
+        const json = await res.json().catch(() => null)
+        if (res.ok && json?.success) {
+          setVerificationMessage("Mobile money payment verified successfully.")
+          const pending = sessionStorage.getItem("pendingOrder")
+          if (pending) {
+            const parsed = JSON.parse(pending)
+            parsed.orderNumber = orderNumber
+            sessionStorage.setItem("lastOrder", JSON.stringify(parsed))
+            sessionStorage.removeItem("pendingOrder")
+            setOrderData(parsed)
+          }
+        } else if (json?.message) {
+          setVerificationMessage(json.message)
+        }
+      })()
+    }
   }, [])
 
   if (!mounted) {
@@ -150,6 +185,9 @@ export default function CheckoutSuccessPage() {
             <h1 className="font-heading text-3xl font-bold text-navy sm:text-4xl lg:text-5xl">
               Thank you for your order!
             </h1>
+            {verificationMessage && (
+              <p className="mt-3 text-sm text-emerald-700">{verificationMessage}</p>
+            )}
             <p className="mt-4 text-lg text-muted-foreground">
               Order{" "}
               <span className="font-semibold text-navy">{orderNumber}</span>
@@ -288,7 +326,7 @@ export default function CheckoutSuccessPage() {
                 Continue Shopping
               </Button>
             </Link>
-            <Link href="#">
+            <Link href="/track-order">
               <Button
                 variant="outline"
                 className="h-auto rounded-full px-10 py-3.5 text-base font-semibold"

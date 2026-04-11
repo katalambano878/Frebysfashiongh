@@ -34,7 +34,7 @@ export function truncate(str: string, length: number): string {
 }
 
 export function generateOrderNumber(): string {
-  const prefix = "LL"
+  const prefix = "FF"
   const timestamp = Date.now().toString(36).toUpperCase()
   const random = Math.random().toString(36).substring(2, 6).toUpperCase()
   return `${prefix}-${timestamp}-${random}`

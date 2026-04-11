@@ -45,8 +45,8 @@ export function Navbar() {
 
             <Link href="/" className="shrink-0">
               <span className="font-heading text-xl font-bold tracking-tight text-navy sm:text-2xl">
-                Laura&apos;s{" "}
-                <span className="text-rose-primary">Luxury</span>
+                Frebys Fashion{" "}
+                <span className="text-rose-primary">GH</span>
               </span>
             </Link>
 
@@ -120,8 +120,7 @@ export function Navbar() {
         <SheetContent side="left" className="w-80">
           <SheetHeader>
             <SheetTitle className="font-heading text-xl text-navy">
-              Laura&apos;s{" "}
-              <span className="text-rose-primary">Luxury</span>
+              Frebys Fashion <span className="text-rose-primary">GH</span>
             </SheetTitle>
             <SheetDescription className="sr-only">
               Navigation menu

@@ -58,10 +58,10 @@ const trackingSteps = [
 ]
 
 const packageDetails = {
-  orderNumber: "LL-7K3F-A2XN",
+  orderNumber: "FF-7K3F-A2XN",
   items: [
-    { name: "Rosé Quilted Tote", variant: "Rosé", qty: 1 },
-    { name: "Pearl Drop Earrings", variant: "Gold", qty: 1 },
+    { name: "Girls Ankara Flare Dress", variant: "Age 6-7", qty: 1 },
+    { name: "Boys Ankara Occasion Set", variant: "Size M", qty: 1 },
   ],
   estimatedDelivery: "March 20–21, 2026",
   courier: "GHS Express",
@@ -103,7 +103,7 @@ export default function TrackOrderPage() {
                 <Label htmlFor="trackOrderNumber">Order Number</Label>
                 <Input
                   id="trackOrderNumber"
-                  placeholder="e.g. LL-7K3F-A2XN"
+                  placeholder="e.g. FF-7K3F-A2XN"
                   value={orderNumber}
                   onChange={(e) => setOrderNumber(e.target.value)}
                   className="h-11 rounded-xl border-rose-border text-base focus-visible:border-rose-primary focus-visible:ring-rose-primary/20"

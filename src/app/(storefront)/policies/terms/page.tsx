@@ -10,7 +10,7 @@ const sections = [
   {
     title: "1. Acceptance of Terms",
     paragraphs: [
-      "By accessing and using the Laura's Luxury website (laurasluxury.com) and services, you agree to be bound by these Terms & Conditions. If you do not agree to these terms, please do not use our website or services.",
+      "By accessing and using the Frebys Fashion GH website (frebysfashiongh.com) and services, you agree to be bound by these Terms & Conditions. If you do not agree to these terms, please do not use our website or services.",
       "We reserve the right to update or modify these terms at any time without prior notice. Continued use of our website after any changes constitutes your acceptance of the revised terms. We encourage you to review this page periodically.",
     ],
   },
@@ -19,14 +19,14 @@ const sections = [
     paragraphs: [
       "To make purchases and access certain features, you may be required to create an account. You agree to provide accurate, current, and complete information during registration and to keep your account details up to date.",
       "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. Please notify us immediately if you suspect any unauthorised access.",
-      "Laura's Luxury reserves the right to suspend or terminate accounts that violate these terms, engage in fraudulent activity, or are otherwise deemed harmful to our community or business.",
+      "Frebys Fashion GH reserves the right to suspend or terminate accounts that violate these terms, engage in fraudulent activity, or are otherwise deemed harmful to our community or business.",
     ],
   },
   {
     title: "3. Orders & Purchases",
     paragraphs: [
       "All orders placed through our website are subject to acceptance and availability. Placing an order constitutes an offer to purchase, which we may accept or decline at our discretion.",
-      "Order confirmation is sent via email and/or SMS upon successful payment. This confirmation represents our acceptance of your order and forms a binding contract between you and Laura's Luxury.",
+      "Order confirmation is sent via email and/or SMS upon successful payment. This confirmation represents our acceptance of your order and forms a binding contract between you and Frebys Fashion GH.",
       "We reserve the right to cancel orders in cases of pricing errors, suspected fraud, product unavailability, or other circumstances beyond our control. If an order is cancelled, you will receive a full refund.",
       "All orders are subject to verification. We may contact you to confirm order details before processing.",
     ],
@@ -44,7 +44,7 @@ const sections = [
     title: "5. Delivery",
     paragraphs: [
       "Delivery timelines provided at checkout and in our Shipping Policy are estimates and not guarantees. While we make every effort to deliver within the stated timeframes, delays may occur due to courier issues, weather, public holidays, or circumstances beyond our control.",
-      "Risk of loss and title for items pass to you upon delivery. You are responsible for providing an accurate and complete delivery address. Laura's Luxury is not liable for delays or failed deliveries caused by incorrect address information.",
+      "Risk of loss and title for items pass to you upon delivery. You are responsible for providing an accurate and complete delivery address. Frebys Fashion GH is not liable for delays or failed deliveries caused by incorrect address information.",
       "If you are unavailable at the time of delivery, our courier partner will attempt redelivery. After two failed attempts, the package may be returned to us, and a redelivery fee may apply.",
     ],
   },
@@ -52,23 +52,23 @@ const sections = [
     title: "6. Returns & Refunds",
     paragraphs: [
       "Returns and refunds are governed by our Returns & Refunds Policy. By making a purchase, you agree to the terms outlined in that policy.",
-      "In summary: items may be returned within 7 days of delivery if they are unused, unworn, and in original packaging. Certain items (opened perfumes, earrings, final sale items) are excluded from returns.",
+      "In summary: items may be returned within 7 days of delivery if they are unused, unworn, and in original packaging. Final sale and personalized items are excluded from returns unless defective.",
       "Refunds are processed within 3–5 business days of receiving the returned item. Shipping fees are non-refundable unless the return is due to our error.",
     ],
   },
   {
     title: "7. Intellectual Property",
     paragraphs: [
-      "All content on the Laura's Luxury website — including text, images, graphics, logos, product descriptions, and design elements — is the property of Laura's Luxury and is protected by copyright and intellectual property laws.",
+      "All content on the Frebys Fashion GH website — including text, images, graphics, logos, product descriptions, and design elements — is the property of Frebys Fashion GH and is protected by copyright and intellectual property laws.",
       "You may not reproduce, distribute, modify, or use any content from our website for commercial purposes without our prior written consent.",
-      "The Laura's Luxury name, logo, and associated branding are trademarks of Laura's Luxury. Unauthorised use of these trademarks is prohibited.",
+      "The Frebys Fashion GH name, logo, and associated branding are trademarks of Frebys Fashion GH. Unauthorised use of these trademarks is prohibited.",
     ],
   },
   {
     title: "8. Limitation of Liability",
     paragraphs: [
-      "Laura's Luxury provides its website and services on an \"as is\" and \"as available\" basis. While we strive for accuracy and reliability, we do not guarantee that our website will be uninterrupted, error-free, or free of viruses.",
-      "To the maximum extent permitted by law, Laura's Luxury shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our website or services.",
+      "Frebys Fashion GH provides its website and services on an \"as is\" and \"as available\" basis. While we strive for accuracy and reliability, we do not guarantee that our website will be uninterrupted, error-free, or free of viruses.",
+      "To the maximum extent permitted by law, Frebys Fashion GH shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our website or services.",
       "Our total liability for any claim related to a purchase shall not exceed the amount you paid for the specific product in question.",
       "Nothing in these terms excludes or limits liability that cannot be lawfully excluded or limited under applicable Ghanaian law.",
     ],
@@ -84,9 +84,9 @@ const sections = [
     title: "10. Contact Information",
     paragraphs: [
       "If you have any questions about these Terms & Conditions, please contact us:",
-      "Email: legal@laurasluxury.com",
-      "WhatsApp: +233 24 123 4567",
-      "Address: Laura's Luxury, 12 Independence Avenue, East Legon, Accra, Ghana",
+      "Email: info@frebysfashiongh.com",
+      "WhatsApp: +233 24 472 0197",
+      "Address: Frebys Fashion GH, Haatso, Accra, Ghana",
     ],
   },
 ]
@@ -162,7 +162,7 @@ export default function TermsPage() {
             viewport={{ once: true }}
             className="mt-8 text-center text-sm text-muted-foreground"
           >
-            By using Laura&apos;s Luxury, you acknowledge that you have read,
+            By using Frebys Fashion GH, you acknowledge that you have read,
             understood, and agree to these Terms &amp; Conditions.
           </motion.p>
         </motion.div>

@@ -89,7 +89,7 @@ export default function SignupPage() {
         <div className="mb-8 text-center">
           <h1 className="font-heading text-3xl text-navy">Create Account</h1>
           <p className="mt-2 text-muted-foreground">
-            Join the Laura&apos;s Luxury community
+            Join the Frebys Fashion GH community
           </p>
         </div>
 

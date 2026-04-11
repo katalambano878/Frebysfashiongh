@@ -333,6 +333,7 @@ export type StorefrontCategory = {
   description: string
   productCount: number
   image_url: string | null
+  is_featured_on_home: boolean
 }
 
 export async function fetchStorefrontCategoriesWithCounts(): Promise<
@@ -341,9 +342,11 @@ export async function fetchStorefrontCategoriesWithCounts(): Promise<
   const supabase = await getClient()
   const { data: cats, error: catErr } = await supabase
     .from("categories")
-    .select("id, name, slug, description, image_url")
+    .select("id, name, slug, description, image_url, is_featured_on_home")
     .eq("is_active", true)
+    .eq("is_featured_on_home", true)
     .order("sort_order", { ascending: true })
+    .limit(4)
 
   if (catErr || !cats?.length) return []
 
@@ -366,5 +369,6 @@ export async function fetchStorefrontCategoriesWithCounts(): Promise<
     description: (c.description as string | null)?.trim() ?? "",
     productCount: countMap.get(c.id) ?? 0,
     image_url: (c.image_url as string | null)?.trim() || null,
+    is_featured_on_home: Boolean(c.is_featured_on_home),
   }))
 }

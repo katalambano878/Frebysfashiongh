@@ -1,16 +1,17 @@
 "use client"
 
-import { use, useEffect, useState } from "react"
+import { use, useEffect, useState, type ChangeEvent } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
+import { uploadImageFile } from "@/lib/admin/upload-image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, Loader2, Save, Trash2 } from "lucide-react"
+import { ArrowLeft, Image as ImageIcon, Loader2, Save, Trash2, Upload } from "lucide-react"
 
 export default function EditBlogPostPage({
   params,
@@ -30,6 +31,8 @@ export default function EditBlogPostPage({
   const [readTime, setReadTime] = useState("")
   const [published, setPublished] = useState(false)
   const [publishedAt, setPublishedAt] = useState<string | null>(null)
+  const [uploadingCover, setUploadingCover] = useState(false)
+  const [uploadError, setUploadError] = useState("")
 
   useEffect(() => {
     const supabase = createClient()
@@ -92,6 +95,21 @@ export default function EditBlogPostPage({
     const supabase = createClient()
     await supabase.from("blog_posts").delete().eq("id", id)
     router.push("/admin/blog")
+  }
+
+  const handleCoverUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    setUploadingCover(true)
+    setUploadError("")
+    const { url, error } = await uploadImageFile(file, "blog-covers")
+    if (error) {
+      setUploadError(error)
+    } else if (url) {
+      setCoverUrl(url)
+    }
+    setUploadingCover(false)
+    event.target.value = ""
   }
 
   if (loading) {
@@ -163,12 +181,40 @@ export default function EditBlogPostPage({
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="cover">Cover image URL</Label>
-              <Input
-                id="cover"
-                value={coverUrl}
-                onChange={(e) => setCoverUrl(e.target.value)}
-              />
+              <Label>Cover image</Label>
+              <div className="flex items-center gap-3">
+                <div className="flex size-16 items-center justify-center overflow-hidden rounded-lg border bg-white">
+                  {coverUrl ? (
+                    <img src={coverUrl} alt="Cover preview" className="size-full object-cover" />
+                  ) : (
+                    <ImageIcon className="size-5 text-slate-300" />
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <label>
+                    <input
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+                      className="hidden"
+                      onChange={(e) => void handleCoverUpload(e)}
+                    />
+                    <span className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border px-3 py-2 text-sm hover:bg-slate-50">
+                      {uploadingCover ? (
+                        <Loader2 className="size-4 animate-spin" />
+                      ) : (
+                        <Upload className="size-4" />
+                      )}
+                      Upload cover
+                    </span>
+                  </label>
+                  {coverUrl && (
+                    <Button type="button" variant="ghost" size="sm" onClick={() => setCoverUrl("")}>
+                      Remove image
+                    </Button>
+                  )}
+                </div>
+              </div>
+              {uploadError ? <p className="text-xs text-red-600">{uploadError}</p> : null}
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="cat">Category</Label>

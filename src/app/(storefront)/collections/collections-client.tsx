@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Shirt, UserRound, Scissors, PartyPopper, Globe, Star } from "lucide-react"
 import { Container } from "@/components/shared/container"
 import { Heading } from "@/components/shared/heading"
 import type { StorefrontCategory } from "@/lib/supabase/storefront-products"
@@ -17,7 +17,7 @@ const gradients = [
   "from-yellow-50 to-amber-50",
 ]
 
-const icons = ["👜", "👗", "👠", "🌸", "✨", "🎁"]
+const icons = [Shirt, UserRound, Scissors, PartyPopper, Globe, Star]
 
 export type CollectionsPageClientProps = {
   categories: StorefrontCategory[]
@@ -39,7 +39,7 @@ export default function CollectionsPageClient({
 
         <Heading
           as="h1"
-          subtitle="Browse our curated collections of luxury essentials"
+          subtitle="Browse curated kids Ankara collections for every occasion"
           align="left"
         >
           Collections
@@ -64,9 +64,10 @@ export default function CollectionsPageClient({
                   )}
                 >
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="mb-3 text-5xl">
-                      {icons[idx % icons.length]}
-                    </span>
+                    {(() => {
+                      const Icon = icons[idx % icons.length]
+                      return <Icon className="mb-3 size-12 text-rose-primary/60" />
+                    })()}
                     <h3 className="font-heading text-2xl text-navy">
                       {category.name}
                     </h3>

@@ -10,7 +10,7 @@ const sections = [
   {
     title: "1. Information We Collect",
     paragraphs: [
-      "When you visit or make a purchase on laurasluxury.com, we collect certain information to provide and improve our services. This includes:",
+      "When you visit or make a purchase on frebysfashiongh.com, we collect certain information to provide and improve our services. This includes:",
       "Personal Information: Name, email address, phone number, delivery address, and billing information provided during account creation or checkout.",
       "Order Information: Details of products purchased, order history, transaction amounts, and payment method (we do not store full card details).",
       "Device & Usage Information: IP address, browser type, device type, pages visited, time spent on pages, and referring URLs — collected automatically through cookies and similar technologies.",
@@ -32,9 +32,9 @@ const sections = [
   {
     title: "3. Information Sharing",
     paragraphs: [
-      "Laura's Luxury does not sell, rent, or trade your personal information to third parties for their marketing purposes. We may share your information with:",
+      "Frebys Fashion GH does not sell, rent, or trade your personal information to third parties for their marketing purposes. We may share your information with:",
       "Service Providers: Trusted third parties who help us operate our business, including payment processors (Paystack, MTN MoMo), courier partners, and email/SMS service providers. These partners only access your information to perform services on our behalf and are obligated to protect it.",
-      "Legal Requirements: We may disclose your information if required by law, regulation, or legal process, or to protect the rights, property, or safety of Laura's Luxury, our customers, or the public.",
+      "Legal Requirements: We may disclose your information if required by law, regulation, or legal process, or to protect the rights, property, or safety of Frebys Fashion GH, our customers, or the public.",
       "Business Transfers: In the event of a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will notify you of any such change.",
     ],
   },
@@ -66,13 +66,13 @@ const sections = [
       "Deletion: You can request that we delete your personal data, subject to legal and contractual obligations that may require us to retain certain information.",
       "Opt-Out: You can unsubscribe from marketing communications at any time by clicking the unsubscribe link in our emails or contacting us directly.",
       "Data Portability: You can request your personal data in a structured, commonly used format.",
-      "To exercise any of these rights, please contact us at privacy@laurasluxury.com or via WhatsApp at +233 24 123 4567. We will respond to your request within 30 days.",
+      "To exercise any of these rights, please contact us at info@frebysfashiongh.com or via WhatsApp at +233 24 472 0197. We will respond to your request within 30 days.",
     ],
   },
   {
     title: "7. Children's Privacy",
     paragraphs: [
-      "Laura's Luxury does not knowingly collect personal information from individuals under the age of 18. Our products and services are intended for adults. If we become aware that we have collected data from a minor, we will take steps to delete that information promptly.",
+      "Frebys Fashion GH does not knowingly collect personal information from individuals under the age of 18. Our products and services are intended for adults. If we become aware that we have collected data from a minor, we will take steps to delete that information promptly.",
     ],
   },
   {
@@ -158,10 +158,10 @@ export default function PrivacyPolicyPage() {
             <p className="text-sm text-muted-foreground">
               If you have questions about this Privacy Policy, contact us at{" "}
               <a
-                href="mailto:privacy@laurasluxury.com"
+                href="mailto:info@frebysfashiongh.com"
                 className="font-medium text-rose-primary hover:underline"
               >
-                privacy@laurasluxury.com
+                info@frebysfashiongh.com
               </a>
             </p>
           </motion.div>

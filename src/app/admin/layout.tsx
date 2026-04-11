@@ -1,21 +1,26 @@
 "use client"
 
-import { useEffect, useMemo, useState, type ElementType, type ReactNode } from "react"
+import { useMemo, useState, type ElementType, type ReactNode } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   Bell,
+  ChartSpline,
   FileText,
   Grid3X3,
+  Headset,
   Home,
   Layers,
   LayoutDashboard,
   LogOut,
+  Megaphone,
   Menu,
   Package,
   Percent,
+  ScanLine,
   Settings,
   ShoppingCart,
+  ShieldCheck,
   ToggleLeft,
   User,
   Users,
@@ -41,30 +46,40 @@ import {
 import { useAdminUser } from "@/lib/hooks/use-admin-user"
 import { cn, truncate as truncateText } from "@/lib/utils"
 
-type NavItem = { href: string; label: string; icon: ElementType }
+type NavItem = {
+  href: string
+  label: string
+  icon: ElementType
+  requiredPermission?: string
+}
 
 const MAIN: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/products", label: "Products", icon: Package },
-  { href: "/admin/orders", label: "Orders", icon: ShoppingCart },
-  { href: "/admin/customers", label: "Customers", icon: Users },
+  { href: "/admin/analytics", label: "Analytics", icon: ChartSpline, requiredPermission: "analytics_view" },
+  { href: "/admin/pos", label: "POS", icon: ScanLine, requiredPermission: "pos_use" },
+  { href: "/admin/products", label: "Products", icon: Package, requiredPermission: "catalog_manage" },
+  { href: "/admin/orders", label: "Orders", icon: ShoppingCart, requiredPermission: "orders_manage" },
+  { href: "/admin/customers", label: "Customers", icon: Users, requiredPermission: "customers_view" },
 ]
 
 const CATALOG: NavItem[] = [
-  { href: "/admin/categories", label: "Categories", icon: Grid3X3 },
-  { href: "/admin/collections", label: "Collections", icon: Layers },
-  { href: "/admin/inventory", label: "Inventory", icon: Warehouse },
+  { href: "/admin/categories", label: "Categories", icon: Grid3X3, requiredPermission: "catalog_manage" },
+  { href: "/admin/collections", label: "Collections", icon: Layers, requiredPermission: "catalog_manage" },
+  { href: "/admin/inventory", label: "Inventory", icon: Warehouse, requiredPermission: "catalog_manage" },
 ]
 
 const CONTENT: NavItem[] = [
-  { href: "/admin/blog", label: "Blog", icon: FileText },
-  { href: "/admin/homepage", label: "Homepage", icon: Home },
-  { href: "/admin/discounts", label: "Discounts", icon: Percent },
+  { href: "/admin/blog", label: "Blog", icon: FileText, requiredPermission: "content_manage" },
+  { href: "/admin/homepage", label: "Homepage", icon: Home, requiredPermission: "content_manage" },
+  { href: "/admin/discounts", label: "Discounts", icon: Percent, requiredPermission: "discounts_manage" },
+  { href: "/admin/notifications", label: "Marketing", icon: Megaphone, requiredPermission: "marketing_manage" },
+  { href: "/admin/support", label: "Support CRM", icon: Headset, requiredPermission: "support_manage" },
 ]
 
 const SYSTEM: NavItem[] = [
-  { href: "/admin/settings", label: "Settings", icon: Settings },
-  { href: "/admin/feature-flags", label: "Feature Flags", icon: ToggleLeft },
+  { href: "/admin/team", label: "Team & Roles", icon: ShieldCheck, requiredPermission: "roles_manage" },
+  { href: "/admin/settings", label: "Settings", icon: Settings, requiredPermission: "settings_manage" },
+  { href: "/admin/feature-flags", label: "Feature Flags", icon: ToggleLeft, requiredPermission: "settings_manage" },
 ]
 
 function navActive(pathname: string, href: string) {
@@ -74,9 +89,13 @@ function navActive(pathname: string, href: string) {
 
 function NavSections({
   pathname,
+  role,
+  permissions,
   onNavigate,
 }: {
   pathname: string
+  role: string
+  permissions: Record<string, boolean>
   onNavigate?: () => void
 }) {
   const renderSection = (title: string, items: NavItem[]) => (
@@ -85,7 +104,12 @@ function NavSections({
         {title}
       </p>
       <nav className="flex flex-col gap-0.5">
-        {items.map(({ href, label, icon: Icon }) => {
+        {items.map(({ href, label, icon: Icon, requiredPermission }) => {
+          const hasPermission =
+            role === "superadmin" ||
+            !requiredPermission ||
+            permissions[requiredPermission] !== false
+          if (!hasPermission) return null
           const active = navActive(pathname, href)
           return (
             <Link
@@ -172,20 +196,20 @@ export default function AdminLayout({
   children: ReactNode
 }) {
   const pathname = usePathname()
-  const { user, profile, loading, signOut } = useAdminUser()
+  const { user, profile, permissions, loading, signOut } = useAdminUser()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [adminUser, setAdminUser] = useState<{
+  const adminUser = useMemo<{
     email: string
     fullName: string
     role: string
-  }>({ email: "", fullName: "", role: "" })
-
-  useEffect(() => {
-    const email = profile?.email ?? user?.email ?? ""
-    const fullName = profile?.full_name ?? ""
-    const role = profile?.role ?? ""
-    setAdminUser({ email, fullName, role })
-  }, [profile, user])
+  }>(
+    () => ({
+      email: profile?.email ?? user?.email ?? "",
+      fullName: profile?.full_name ?? "",
+      role: profile?.role ?? "",
+    }),
+    [profile, user],
+  )
 
   const breadcrumb = useMemo(() => {
     if (pathname === "/admin") return "Dashboard"
@@ -210,14 +234,14 @@ export default function AdminLayout({
         <div className="flex h-full flex-col px-4 pb-6 pt-6 shadow-[2px_0_24px_-4px_rgba(0,0,0,0.12)]">
           <div className="mb-8 flex items-center gap-2 px-2">
             <span className="text-lg font-semibold tracking-tight text-white">
-              Laura&apos;s Luxury
+              Frebys Fashion GH
             </span>
             <Badge className="border-0 bg-rose-primary/25 text-[10px] font-semibold text-rose-soft">
               Admin
             </Badge>
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto pr-1">
-            <NavSections pathname={pathname} />
+            <NavSections pathname={pathname} role={adminUser.role} permissions={permissions} />
           </div>
           {!loading && (
             <SidebarFooter
@@ -259,14 +283,19 @@ export default function AdminLayout({
                 <div className="flex h-[calc(100%-4.5rem)] flex-col px-4 pb-6 pt-4">
                   <div className="mb-6 flex items-center gap-2 px-0">
                     <span className="text-base font-semibold tracking-tight">
-                      Laura&apos;s Luxury
+                      Frebys Fashion GH
                     </span>
                     <Badge className="border-0 bg-rose-primary/25 text-[10px] font-semibold text-rose-soft">
                       Admin
                     </Badge>
                   </div>
                   <div className="min-h-0 flex-1 overflow-y-auto">
-                    <NavSections pathname={pathname} onNavigate={closeMobile} />
+                    <NavSections
+                      pathname={pathname}
+                      role={adminUser.role}
+                      permissions={permissions}
+                      onNavigate={closeMobile}
+                    />
                   </div>
                   {!loading && (
                     <SidebarFooter

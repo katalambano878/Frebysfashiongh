@@ -17,14 +17,14 @@ type HeroData = {
 }
 
 const FALLBACK: HeroData = {
-  headline: "Luxury That Fits Your Everyday",
-  subheadline: "Bags, shoes, dresses & perfumes — curated for confident women.",
-  cta_primary: "Shop New Arrivals",
-  cta_secondary: "Explore Collections",
+  headline: "Unique Kids Wear for Every Occasion",
+  subheadline: "Passion for kids fashion with casual and luxury Ankara styles.",
+  cta_primary: "Shop Kids Collections",
+  cta_secondary: "Explore New Arrivals",
   slides: [
-    { image_url: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop", alt: "Luxury fashion and bags" },
-    { image_url: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=2000&auto=format&fit=crop", alt: "Premium perfumes" },
-    { image_url: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=2000&auto=format&fit=crop", alt: "Elegant dresses" },
+    { image_url: "https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?q=80&w=2069&auto=format&fit=crop", alt: "Kids fashion style" },
+    { image_url: "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1974&auto=format&fit=crop", alt: "Colorful kids outfits" },
+    { image_url: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1974&auto=format&fit=crop", alt: "Family occasion wear" },
   ],
 }
 

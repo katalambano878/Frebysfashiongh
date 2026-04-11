@@ -305,6 +305,47 @@ export default function CheckoutPage() {
         return
       }
 
+      if (formData.paymentMethod === "moolre") {
+        const res = await fetch("/api/payment/moolre", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+        const data = await res.json()
+
+        if (!res.ok || !data.url) {
+          setOrderError(data.error || "Failed to initialize mobile money payment")
+          setPlacingOrder(false)
+          return
+        }
+
+        sessionStorage.setItem(
+          "pendingOrder",
+          JSON.stringify({
+            orderNumber: data.order_number,
+            items,
+            subtotal,
+            shipping: shippingCost,
+            total,
+            formData: {
+              email: formData.email,
+              firstName: formData.firstName,
+              lastName: formData.lastName,
+              address1: formData.address1,
+              city: formData.city,
+              region: formData.region,
+              country: formData.country,
+              shippingMethod: formData.shippingMethod,
+              paymentMethod: formData.paymentMethod,
+            },
+          }),
+        )
+
+        clearCart()
+        window.location.href = data.url
+        return
+      }
+
       sessionStorage.setItem(
         "lastOrder",
         JSON.stringify({
@@ -1020,7 +1061,7 @@ export default function CheckoutPage() {
                   <div>
                     <p className="text-sm font-semibold text-navy">Need help?</p>
                     <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                      Our concierge can help with shipping, payment, and fit before you place your order.
+                      Our support team can help with shipping, payment, and fit before you place your order.
                     </p>
                   </div>
                 </CardContent>

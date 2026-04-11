@@ -32,27 +32,27 @@ const contactInfo = [
   {
     icon: MessageCircle,
     label: "WhatsApp",
-    value: "+233 24 123 4567",
-    href: "https://wa.me/233241234567",
+    value: "+233 24 472 0197",
+    href: "https://wa.me/233244720197",
   },
   {
     icon: Mail,
     label: "Email",
-    value: "hello@laurasluxury.com",
-    href: "mailto:hello@laurasluxury.com",
+    value: "info@frebysfashiongh.com",
+    href: "mailto:info@frebysfashiongh.com",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+233 30 212 3456",
-    href: "tel:+233302123456",
+    value: "+233 24 472 0197",
+    href: "tel:+233244720197",
   },
 ]
 
 const socials = [
-  { icon: Globe, label: "Instagram", href: "#" },
-  { icon: Hash, label: "Facebook", href: "#" },
-  { icon: ExternalLink, label: "Twitter / X", href: "#" },
+  { icon: Globe, label: "Instagram", href: "https://instagram.com/frebysfashiongh" },
+  { icon: Hash, label: "Facebook", href: "https://facebook.com/frebysfashiongh" },
+  { icon: ExternalLink, label: "Website", href: "https://frebysfashiongh.com" },
 ]
 
 const hours = [
@@ -71,7 +71,7 @@ export default function ContactPage() {
           <Heading
             as="h1"
             align="center"
-            subtitle="We'd love to hear from you. Reach out for orders, styling advice, or just to say hello."
+            subtitle="Reach out for kids wear orders, size help, and delivery support."
           >
             Get in Touch
           </Heading>
@@ -232,7 +232,7 @@ export default function ContactPage() {
 
               {/* WhatsApp CTA */}
               <a
-                href="https://wa.me/233241234567"
+                href="https://wa.me/233244720197"
                 className="flex items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-6 py-3.5 font-medium text-white shadow-sm transition-all hover:bg-[#20BD5A] hover:shadow-md"
               >
                 <MessageCircle className="size-5" />
@@ -245,7 +245,7 @@ export default function ContactPage() {
                   <div className="text-center">
                     <MapPin className="mx-auto size-8 text-rose-primary/40" />
                     <p className="mt-2 text-sm font-medium text-navy/40">
-                      Accra, Ghana
+                      Haatso, Accra, Ghana
                     </p>
                   </div>
                 </div>

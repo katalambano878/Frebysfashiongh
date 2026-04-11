@@ -2,27 +2,27 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { Briefcase, Heart, Sun, Gift } from "lucide-react"
+import { Shirt, PartyPopper, Sun, Gift } from "lucide-react"
 import { Container } from "@/components/shared/container"
 import { Section } from "@/components/shared/section"
 import { Heading } from "@/components/shared/heading"
 import { occasions } from "@/lib/mock-data"
 import { cn } from "@/lib/utils"
 
-const occasionStyle: Record<string, { icon: typeof Briefcase; gradient: string }> = {
-  work: {
-    icon: Briefcase,
+const occasionStyle: Record<string, { icon: typeof Shirt; gradient: string }> = {
+  "school-everyday": {
+    icon: Shirt,
     gradient: "from-slate-700 via-slate-600 to-slate-500",
   },
-  wedding: {
-    icon: Heart,
+  parties: {
+    icon: PartyPopper,
     gradient: "from-rose-400 via-pink-400 to-fuchsia-300",
   },
-  weekend: {
+  "weddings-events": {
     icon: Sun,
     gradient: "from-amber-400 via-orange-300 to-yellow-300",
   },
-  gifting: {
+  "family-matching": {
     icon: Gift,
     gradient: "from-violet-500 via-purple-400 to-indigo-400",
   },
@@ -55,7 +55,8 @@ export function ShopByOccasion() {
           className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"
         >
           {occasions.map((occasion) => {
-            const style = occasionStyle[occasion.slug] ?? occasionStyle.work
+            const style =
+              occasionStyle[occasion.slug] ?? occasionStyle["school-everyday"]
             const Icon = style.icon
 
             return (

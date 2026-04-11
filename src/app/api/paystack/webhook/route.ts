@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createHmac } from "crypto"
 import { createAdminClient } from "@/lib/supabase/admin"
+import { sendOrderConfirmation } from "@/lib/notifications"
 
 export async function POST(req: NextRequest) {
   const secretKey = process.env.PAYSTACK_SECRET_KEY
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  let event: any
+  let event: { event?: string; data?: { reference?: string } } | null = null
   try {
     event = JSON.parse(rawBody)
   } catch {
@@ -30,9 +31,9 @@ export async function POST(req: NextRequest) {
   const supabase = createAdminClient()
 
   try {
-    if (event.event === "charge.success") {
+    if (event?.event === "charge.success" && event.data?.reference) {
       const tx = event.data
-      const reference = tx.reference as string
+      const reference = tx.reference
 
       await supabase
         .from("payments")
@@ -50,6 +51,15 @@ export async function POST(req: NextRequest) {
           updated_at: new Date().toISOString(),
         })
         .eq("order_number", reference)
+
+      const { data: order } = await supabase
+        .from("orders")
+        .select("id, order_number, guest_email, guest_phone, shipping_address, grand_total")
+        .eq("order_number", reference)
+        .maybeSingle()
+      if (order) {
+        await sendOrderConfirmation(order)
+      }
 
       await supabase.from("webhook_logs").insert({
         provider: "paystack",

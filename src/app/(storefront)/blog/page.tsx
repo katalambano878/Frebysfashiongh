@@ -34,7 +34,7 @@ export default function BlogPage() {
           <Heading
             as="h1"
             align="center"
-            subtitle="Style tips, fashion guides, and lifestyle inspiration from the Laura's Luxury editorial team."
+            subtitle="Kids fashion tips, Ankara care guides, and parent-friendly styling ideas from Frebys Fashion GH."
           >
             Style Journal
           </Heading>

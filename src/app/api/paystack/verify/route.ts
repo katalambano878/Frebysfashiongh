@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createAdminClient } from "@/lib/supabase/admin"
+import { sendOrderConfirmation } from "@/lib/notifications"
 
 export async function GET(req: NextRequest) {
   const reference = req.nextUrl.searchParams.get("reference")
@@ -42,6 +43,15 @@ export async function GET(req: NextRequest) {
           updated_at: new Date().toISOString(),
         })
         .eq("order_number", reference)
+
+      const { data: order } = await supabase
+        .from("orders")
+        .select("id, order_number, guest_email, guest_phone, shipping_address, grand_total")
+        .eq("order_number", reference)
+        .maybeSingle()
+      if (order) {
+        await sendOrderConfirmation(order)
+      }
 
       return NextResponse.json({
         verified: true,

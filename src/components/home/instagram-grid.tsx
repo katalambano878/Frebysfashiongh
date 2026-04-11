@@ -30,10 +30,10 @@ export function InstagramGrid() {
       <Container>
         <Heading
           as="h2"
-          subtitle="Join our community of confident women"
+          subtitle="See our latest kids Ankara looks and customer highlights"
           align="center"
         >
-          Follow @laurasluxury
+          Follow @frebysfashiongh
         </Heading>
 
         <motion.div
@@ -46,7 +46,7 @@ export function InstagramGrid() {
             <motion.a
               key={i}
               variants={pop}
-              href="https://instagram.com/laurasluxury"
+              href="https://instagram.com/frebysfashiongh"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative aspect-square overflow-hidden rounded-xl"

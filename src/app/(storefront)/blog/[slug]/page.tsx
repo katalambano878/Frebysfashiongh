@@ -21,27 +21,23 @@ import { Separator } from "@/components/ui/separator"
 import { blogPosts } from "@/lib/mock-data"
 
 const articleBody = `
-Fashion is a language that speaks before you do. In a world overflowing with trends, the art of personal style lies in choosing pieces that resonate with who you are — not who the algorithm says you should be.
+Kids fashion tells a joyful story. At Frebys Fashion GH, we design ready-to-wear Ankara outfits that help children look confident and feel comfortable for every occasion.
 
-At Laura's Luxury, we believe that true elegance is less about following every trend and more about investing in quality pieces that tell your story. Whether it's a perfectly structured tote that carries your ambition, or a silk scarf that adds a whisper of sophistication to any outfit, the details matter.
+Our focus is simple: quality fabrics, neat finishing, and standout designs parents can trust. Whether it is a school event, birthday, naming ceremony, or family celebration, the right outfit makes the moment even more special.
 
-The modern woman understands that luxury isn't about excess — it's about intention. It's choosing a handcrafted leather satchel over fast fashion. It's reaching for a perfume that becomes your signature, not just a scent. It's building a wardrobe where every piece earns its place.
+Here are our core style principles:
 
-Here are our guiding principles for timeless style:
+Comfort First — Kids should be able to move, play, and smile freely. Soft fabric and breathable fits always come first.
 
-Quality Over Quantity — A single well-made piece outlasts and outshines a dozen disposable ones. Look for premium materials, clean stitching, and thoughtful design. These are the hallmarks of pieces that age gracefully.
+Occasion Match — Casual days need easy, practical looks, while celebrations call for bold and elegant Ankara styles.
 
-Know Your Silhouette — Understanding what flatters your body is the foundation of effortless dressing. A wrap dress that cinches at the waist, a blazer that sits perfectly on your shoulders — these aren't accidents. They're choices.
+Color Confidence — Ankara shines through color. Pick bright combinations that match your child’s personality and energy.
 
-The Power of Accessories — Never underestimate how a pair of pearl earrings or a statement belt can transform a simple outfit into something extraordinary. Accessories are the punctuation marks of your style story.
+Quality Stitching — Good finishing keeps outfits durable through repeated wear and washing.
 
-Colour With Confidence — While neutrals are timeless, don't shy away from colour. A bold emerald clutch or a rich burgundy heel can be the exclamation point your outfit needs. The key is balance — let one piece sing while the others harmonise.
+Fit Matters — A beautiful design only works when the fit is right. Always confirm chest, waist, and length before ordering.
 
-Invest in the Everyday — The pieces you wear most often deserve the most attention. Your everyday bag, your go-to shoes, your daily fragrance — these are the items worth investing in. They're not just purchases; they're part of your daily armour.
-
-Style is deeply personal, and there's no single formula. But if there's one truth we've learned at Laura's Luxury, it's this: when a woman feels beautiful in what she's wearing, it shows. Not just in how she looks, but in how she walks, speaks, and carries herself through the world.
-
-That's the kind of luxury worth investing in.
+When children feel good in what they wear, it shows in their confidence. That is the style promise we stand by at Frebys Fashion GH.
 `
 
 export default function BlogPostPage({
@@ -210,11 +206,10 @@ export default function BlogPostPage({
               </div>
               <div>
                 <p className="font-heading font-semibold text-navy">
-                  Laura&apos;s Luxury Editorial
+                  Frebys Fashion GH Team
                 </p>
                 <p className="mt-0.5 text-sm text-muted-foreground">
-                  Style insights and fashion wisdom from our curation team,
-                  written for the modern woman who values elegance.
+                  Practical kids fashion tips and Ankara styling ideas for parents.
                 </p>
               </div>
             </div>

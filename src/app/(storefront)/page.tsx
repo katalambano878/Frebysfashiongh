@@ -5,7 +5,6 @@ import { BestSellersGrid } from "@/components/home/best-sellers-grid"
 import { PromoBanner } from "@/components/shared/promo-banner"
 import { TrendingCarousel } from "@/components/home/trending-carousel"
 import { TestimonialsSection } from "@/components/home/testimonials-section"
-import { InstagramGrid } from "@/components/home/instagram-grid"
 import { NewsletterSection } from "@/components/home/newsletter-section"
 import { TrustBar } from "@/components/shared/trust-bar"
 import { Container } from "@/components/shared/container"
@@ -19,11 +18,11 @@ import {
 } from "@/lib/supabase/storefront-products"
 
 export default async function HomePage() {
-  const [newArrivals, curatedPicks, perfumePicks, bestGrid, trending, categories] =
+  const [newArrivals, curatedPicks, occasionPicks, bestGrid, trending, categories] =
     await Promise.all([
       fetchNewArrivals(4),
       fetchBestSellers(4),
-      fetchProductsByCategorySlug("perfumes", 4),
+      fetchProductsByCategorySlug("occasion-wear", 4),
       fetchBestSellers(8),
       fetchTrendingProducts(6),
       fetchStorefrontCategoriesWithCounts(),
@@ -40,7 +39,7 @@ export default async function HomePage() {
           <FeaturedCollections
             newArrivals={newArrivals}
             curatedPicks={curatedPicks}
-            perfumePicks={perfumePicks}
+            occasionPicks={occasionPicks}
           />
         </Container>
       </Section>
@@ -52,10 +51,10 @@ export default async function HomePage() {
       </Section>
 
       <PromoBanner
-        title="The Perfect Gift, Every Time"
-        subtitle="Explore our curated gift sets — beautifully wrapped and ready to delight."
-        ctaText="Shop Gift Sets"
-        ctaHref="/shop?category=jewelries"
+        title="Kids Ankara Styles for Every Event"
+        subtitle="From casual outings to luxury occasions, dress your child with confidence."
+        ctaText="Shop Kids Wear"
+        ctaHref="/shop"
       />
 
       <Section>
@@ -65,12 +64,6 @@ export default async function HomePage() {
       </Section>
 
       <TestimonialsSection />
-
-      <Section>
-        <Container>
-          <InstagramGrid />
-        </Container>
-      </Section>
 
       <Section className="py-12">
         <Container>

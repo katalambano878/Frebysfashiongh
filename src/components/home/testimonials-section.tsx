@@ -22,7 +22,7 @@ export function TestimonialsSection() {
       <Container>
         <Heading
           as="h2"
-          subtitle="Real reviews from real queens"
+          subtitle="Real reviews from real parents"
           align="center"
         >
           What They&rsquo;re Saying
