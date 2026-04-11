@@ -14,7 +14,8 @@ type PosLine = {
 
 export async function POST(req: NextRequest) {
   const { viewer, errorResponse } = await requireAdminApi("pos_use")
-  if (errorResponse || !viewer) return errorResponse
+  if (errorResponse) return errorResponse
+  if (!viewer) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const body = await req.json().catch(() => null)
   if (!body || typeof body !== "object") {

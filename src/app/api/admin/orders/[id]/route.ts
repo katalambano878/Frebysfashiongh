@@ -38,7 +38,8 @@ export async function GET(_: NextRequest, { params }: Params) {
 
 export async function PATCH(req: NextRequest, { params }: Params) {
   const { viewer, errorResponse } = await requireAdminApi("fulfillment_manage")
-  if (errorResponse || !viewer) return errorResponse
+  if (errorResponse) return errorResponse
+  if (!viewer) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const { id } = await params
   const body = await req.json().catch(() => null)
