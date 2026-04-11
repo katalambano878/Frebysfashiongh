@@ -1,7 +1,15 @@
 import { Resend } from "resend"
 import { createAdminClient } from "@/lib/supabase/admin"
 
-const resend = new Resend(process.env.RESEND_API_KEY ?? "")
+let _resend: Resend | null = null
+function getResend() {
+  if (!_resend) {
+    const key = process.env.RESEND_API_KEY
+    if (!key) return null
+    _resend = new Resend(key)
+  }
+  return _resend
+}
 
 const BRAND_NAME = "Frebys Fashion GH"
 const DEFAULT_FROM = process.env.EMAIL_FROM ?? `${BRAND_NAME} <noreply@frebys.com>`
@@ -22,7 +30,8 @@ export function formatPhoneNumber(rawPhone: string) {
 }
 
 export async function sendEmail(args: { to: string; subject: string; html: string }) {
-  if (!process.env.RESEND_API_KEY) return null
+  const resend = getResend()
+  if (!resend) return null
   if (!args.to?.trim()) return null
   try {
     return await resend.emails.send({
